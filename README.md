@@ -2,7 +2,7 @@
 
 A repo for testing and documenting strategies for vertical metrics in fonts.
 
-This repo is in a very early state of progress.
+This repo is a work in (a very early state of) progress.
 
 ## Suggested vertical metrics *Still under review
 
@@ -27,7 +27,7 @@ typoLineGap    = absolute value of hheaDescender # positive value
 # important, or macOS app line height will be wrong in e.g. TextEdit
 useTypoMetrics = False
 
-# Taller height to prevent clipping in MS Word, etc
+# Sets default line heights and clipping heights in MS Word, etc
 winAscent      = yMax in family
 winDescent     = absolute value of yMin in family # positive value
 ```
