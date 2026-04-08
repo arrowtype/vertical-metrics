@@ -63,7 +63,7 @@ There are three systems for recording these values: `typo`, `hhea`, and `win` va
 - hheaLineGap
 - winAscent
 - winDescent
-- useTypoMetrics
+- useTypoMetrics (Bit 7 of OS/2 fsSelection)
 
 ## What does each of these metrics *really do?*
 
@@ -135,6 +135,61 @@ However, there are a few pitfalls of the Google Fonts strategy.
    8. iOS?
    9. Maybe create a submission process, if others wish to contribute their own screenshots?
 4. Store those screenshots, with additional notes as needed, in this repo.
+
+## Tested Strategies
+
+All tested strategies share some basic features:
+- Vertical metrics are set the same for all styles of a family
+
+### Google Fonts
+
+See the [full recommendations](https://googlefonts.github.io/gf-guide/metrics.html) for details. They basically boil down to:
+
+```py
+typoAscender   = Must exceed /Abreveacute (or, at a minimum, above /Agrave)
+typoDescender  = capHeight - typoAscender
+typoLineGap    = 0
+
+useTypoMetrics = True
+
+# Must match typo metrics
+hheaAscender   = typoAscender
+hheaDescender  = typoDescender
+hheaLineGap    = 0
+
+winAscent      = yMax in family
+winDescent     = absolute value of yMin in family # positive value
+
+# The sum of the font’s vertical metric values (absolute) should be 20-30% greater than the font’s UPM
+# This may need to be greater for scripts outside of Latin, Cyrillic, and Greek (e.g. Devanagari)
+```
+
+### Adobe Fonts
+
+- [ ] todo: write this
+
+### GlyphsApp
+
+- [ ] todo: write this
+
+## Test Results
+
+### InDesign
+
+![Test results in InDesign](docs/img/screenshot-mac-indesign-260308.png)
+
+## App Quirks
+
+- InDesign
+  - Sets all fonts to a line height of 120%, by default. This can be adjusted in Justification settings (Shift+Option+Command+J) > Auto Leading 
+  - Sets top of text based on typoAscender. This can be changed per text frame: right click on text frame, go to Text Frame Options (Command+B) > Baseline Options > First Baseline, and you can choose a different Offset basis.
+
+
+## Setting Vertical Metrics in various font editors
+
+- GlyphsApp
+- RoboFont
+- FontLab
 
 
 ## Note on CJK fonts
