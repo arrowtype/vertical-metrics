@@ -1,0 +1,57 @@
+{
+glyphname = colon;
+layers = (
+{
+layerId = m01;
+shapes = (
+{
+closed = 1;
+nodes = (
+(264,457,ls),
+(264,533,o),
+(229,552,o),
+(173,552,cs),
+(139,552,o),
+(111,545,o),
+(86,534,c),
+(86,439,ls),
+(86,350,o),
+(125,335,o),
+(196,335,cs),
+(222,335,o),
+(242,338,o),
+(264,346,c)
+);
+},
+{
+closed = 1;
+nodes = (
+(264,111,ls),
+(264,187,o),
+(229,206,o),
+(173,206,cs),
+(139,206,o),
+(111,199,o),
+(86,188,c),
+(86,93,ls),
+(86,4,o),
+(125,-11,o),
+(196,-11,cs),
+(222,-11,o),
+(242,-8,o),
+(264,0,c)
+);
+}
+);
+userData = {
+com.arrowtype.glyphMarkStatus = needsFixing;
+com.typemytype.robofont.Image.Brightness = 0;
+com.typemytype.robofont.Image.Contrast = 1;
+com.typemytype.robofont.Image.Saturation = 1;
+com.typemytype.robofont.Image.Sharpness = 0.4;
+};
+width = 350;
+}
+);
+unicode = 58;
+}

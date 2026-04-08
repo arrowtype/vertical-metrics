@@ -17,7 +17,7 @@ id = m01;
 metricValues = (
 {
 over = 16;
-pos = 800;
+pos = 750;
 },
 {
 over = 16;
@@ -25,7 +25,7 @@ pos = 700;
 },
 {
 over = 16;
-pos = 500;
+pos = 540;
 },
 {
 over = -16;
@@ -38,6 +38,69 @@ pos = -200;
 }
 );
 name = Regular;
+}
+);
+instances = (
+{
+customParameters = (
+{
+name = typoAscender;
+value = 1126;
+},
+{
+name = typoDescender;
+value = -426;
+},
+{
+name = typoLineGap;
+value = 0;
+},
+{
+name = winAscent;
+value = 1126;
+},
+{
+name = winDescent;
+value = 411;
+},
+{
+name = hheaAscender;
+value = 1126;
+},
+{
+name = hheaDescender;
+value = -426;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = "Use Typo Metrics";
+value = 1;
+},
+{
+name = "Rename Glyphs";
+value = (
+"question.gf=question"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 260308 GF";
+}
+);
+}
+);
 }
 );
 metrics = (
