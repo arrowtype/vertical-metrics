@@ -36,7 +36,7 @@ winDescent     = absolute value of yMin in family # positive value
 
 This repo seeks to test various vertical metrics parameters, in several important/representative apps, to determine a strategy for vertical metrics.
 
-Such a strategy should:
+Such a strategy should ideally...
 - Be as consistent as reasonable possible, between different platforms and apps
 - Be intuitive to use and to read, for each major platform and app
 - Be simple enough to describe and adapt to achieve type design goals
@@ -51,6 +51,7 @@ This will be based mostly on Latin script and other scripts that are primarily s
 
 1. The offset applied to the first line of text within its space.
 2. (Often) the default distance between lines of text.
+3. (Sometimes) the offset applied between the last line of text and the bottom of its space.
 
 There are three systems for recording these values: `typo`, `hhea`, and `win` values.
 
@@ -68,13 +69,37 @@ There are three systems for recording these values: `typo`, `hhea`, and `win` va
 
 Based on testing, how can we describe the effects of each set of metrics?
 
-### When `useTypoMetrics` is False
+### `hhea` metrics
 
-- [ ] add table: metric, general result
+Generally, these set the top and bottom of lines in:
+- Chrome
+- macOS apps like TextEdit, which use CoreText
+
+Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, the system gives the font a significantly larger line height.
+
+- [ ] Test: what happens in other web browsers?
+- [ ] Test: is Chrome on Windows the same as Chrome on Mac, or not?
+
+### `typo` metrics
+
+Generally, these set the top and bottom of lines in Adobe InDesign.
+
+- [ ] Test: what happens in other Adobe apps?
+
+### `win` metrics
+
+Generally, these set the top and bottom of each line in MS Word. This also sets where clipping occurs in glyphs.
+
+- [ ] Test: what happens in other Windows apps?
 
 ### When `useTypoMetrics` is True
 
-- [ ] add table: metric, general result
+If `useTypoMetrics` is set to True, most apps follow the typo metrics. 
+
+However, this causes a few issues:
+1. Mac apps now check if the typoAscender exceeds the /Agrave height, and apply tall metrics if not.
+2. MS Word will follow the typo metrics, including for its clipping boundaries – regardless of what win metrics are set.
+3. Because of issues 1 and 2, typo metrics *have to* be set well above the cap height, which can be unintuitive for InDesign users.
 
 ## Why not just use the Google Fonts strategy?
 
@@ -88,7 +113,7 @@ However, there are a few pitfalls of the Google Fonts strategy.
   - In particular, it suggests that setting win metrics to exceed the min and max Y values of a family will prevent Microsoft Word from clipping shapes in the font. However, it also requires setting "Use Typo Metrics" to True, which causes MS Word to ... use Typo metrics ... at which point, clipping still *does* occur. (As of Microsoft Word in Windows 11)
 - It is biased towards the needs of fonts within the context of web UI.
   - It suggests centering caps within the typo/hhea metrics, which is very helpful in web UI, but may not always work well for fonts with atypical sizing relationships. In particular, many script fonts have a very low x-Height (relative to Cap Height), and may also have very tall swashes.
-
+- It doesn’t allow the designer to start with a *target* line height, and is instead just a series of glyphs to exceed. So, if a designer wants to satisfy the Google Fonts guidelines, but also make a default line height of 1.5x UPM, they have to understand a lot to get there.
 
 
 ## Test approach
@@ -111,19 +136,14 @@ However, there are a few pitfalls of the Google Fonts strategy.
    9. Maybe create a submission process, if others wish to contribute their own screenshots?
 4. Store those screenshots, with additional notes as needed, in this repo.
 
-- [ ] Check which apps may have redundant approaches to layout. 
-  - [ ] For example, do Safari and Firefox use the same stack to determine text line heights? 
-  - [ ] Is Chrome on Windows the same as Chrome on Mac, or not?
 
-
-## Note on CJK
+## Note on CJK fonts
 
 In the [OpenType specification for OS/2 typoAscender](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender), it says:
 
 > For CJK (Chinese, Japanese, and Korean) fonts that are intended to be used for vertical (as well as horizontal) layout, the required value for sTypoAscender is that which describes the top of the ideographic em-box.
 
 This has not been tested (yet) in this repo, but it is probably sound advice.
-
 
 ## Build
 
@@ -140,6 +160,7 @@ Finally, run the build:
 
 ## Contributing
 
+- [ ] add details on how contributions can be made (e.g. Pull Requests vs Issues)
 
 ## Credits
 
@@ -147,6 +168,7 @@ Many thanks to:
 - [The Type Founders](https://typographer.com/), for supporting much of the time that has been put into this testing.
 - [Google Fonts](https://fonts.google.com/), for informing this approach and documentation, as well as for their support of foundational tools used here.
 - (More credits to be added!)
+- ArrowType (Stephen Nixon) for the primary design, writing, and testing done for this repo
 
 
 ## Background Resources
