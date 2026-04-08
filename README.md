@@ -1,2 +1,123 @@
-# vertical-metrics
-A repo for testing and documenting strategies for vertical metrics in fonts
+# Vertical Metrics
+
+A repo for testing and documenting strategies for vertical metrics in fonts.
+
+This repo is in a very early state of progress.
+
+## Suggested vertical metrics
+
+For now, this is partially a hypothesis, based on slightly scattered testing. A key goal of this repo is to test and document more methodically, to determine where and how effective this approach is.
+
+- [ ] add current advised strategy
+
+## Goals and Scope
+
+This repo seeks to test various vertical metrics parameters, in several important/representative apps, to determine a strategy for vertical metrics.
+
+Such a strategy should:
+- Be as consistent as reasonable possible, between different platforms and apps
+- Be intuitive to use and to read, for each major platform and app
+- Be simple enough to describe and adapt to achieve type design goals
+
+The repo will also seek to provide documentation behind new checks contributed to [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/).
+
+This will be based mostly on Latin script and other scripts that are primarily set horizontally, but the documented behavior of metrics can likely help inform any OpenType font, for almost any script.
+
+## What are vertical metrics?
+
+“Vertical metrics” are values recorded in OpenType fonts which text-setting software use to determine the 
+
+1. The offset applied to the first line of text within its space.
+2. (Often) the default distance between lines of text.
+
+There are three systems for recording these values: `typo`, `hhea`, and `win` values.
+
+- typoAscender
+- typoDescender
+- typoLineGap
+- hheaAscender
+- hheaDescender
+- hheaLineGap
+- winAscent
+- winDescent
+- useTypoMetrics
+
+## What does each of these metrics *really do?*
+
+Based on testing, how can we describe the effects of each set of metrics?
+
+### When `useTypoMetrics` is False
+
+- [ ] add table: metric, general result
+
+### When `useTypoMetrics` is True
+
+- [ ] add table: metric, general result
+
+## Why not just use the Google Fonts strategy?
+
+There are several metrics strategies, but one of the most common is [the “Google Fonts” strategy for vertical metrics](googlefonts.github.io/gf-guide/metrics.html). It is used for all (or almost all) fonts on Google Fonts, and these fonts have massive usage. It is also suggested by a collection of checks within [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/), which further reinforces its dominance.
+
+However, there are a few pitfalls of the Google Fonts strategy.
+
+- It is web-focused, and does not create intuitive results for Adobe apps such as InDesign.
+  - It suggests setting the typoAscender to exceed the `Abreveacute`. In InDesign, this pushes the first line of text significantly downwards from the top of the text frame, which can make it challenging to align text. (This is solvable by diving into text frame options, but it would be preferable to not require users do this.)
+- It makes certain promises which are not reproducible. 
+  - In particular, it suggests that setting win metrics to exceed the min and max Y values of a family will prevent Microsoft Word from clipping shapes in the font. However, it also requires setting "Use Typo Metrics" to True, which causes MS Word to ... use Typo metrics ... at which point, clipping still *does* occur. (As of Microsoft Word in Windows 11)
+- It is biased towards the needs of fonts within the context of web UI.
+  - It suggests centering caps within the typo/hhea metrics, which is very helpful in web UI, but may not always work well for fonts with atypical sizing relationships. In particular, many script fonts have a very low x-Height (relative to Cap Height), and may also have very tall swashes.
+
+
+
+## Test approach
+
+1. Create a Glyphs source which...
+   1. Uses individual Exports settings to vary vertical metrics for testing different approaches.
+   2. Includes glyphs that contains vertical measurements, which will have alternates which are exported specific to different test exports.
+2. Build via FontMake
+3. Test each export in multiple apps and platforms, with consistent screenshots, to document results.
+   1. Chrome
+      1. Safari?
+      2. Firefox?
+   2. Mac TextEdit (CoreText)
+   3. Adobe InDesign
+   4. Adobe Illustrator
+   5. MS Word on Windows
+   6. MS Word on Mac
+   7. Android?
+   8. iOS?
+   9. Maybe create a submission process, if others wish to contribute their own screenshots?
+4. Store those screenshots, with additional notes as needed, in this repo.
+
+- [ ] Check which apps may have redundant approaches to layout. 
+  - [ ] For example, do Safari and Firefox use the same stack to determine text line heights? 
+  - [ ] Is Chrome on Windows the same as Chrome on Mac, or not?
+
+
+## Note on CJK
+
+In the [OpenType specification for OS/2 typoAscender](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender), it says:
+
+> For CJK (Chinese, Japanese, and Korean) fonts that are intended to be used for vertical (as well as horizontal) layout, the required value for sTypoAscender is that which describes the top of the ideographic em-box.
+
+This has not been tested (yet) in this repo, but it is probably sound advice.
+
+
+## Contributing
+
+
+## Credits
+
+Many thanks to:
+- [The Type Founders](https://typographer.com/), for supporting much of the time that has been put into this testing.
+- [Google Fonts](https://fonts.google.com/), for informing this approach and documentation, as well as for their support of foundational tools used here.
+- (More credits to be added!)
+
+
+## Background Resources
+
+- [OpenType Spec: OS/2 Table](https://learn.microsoft.com/en-us/typography/opentype/spec/os2)
+- [OpenType Spec: hhea Table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
+- [OpenType Spec: Recommendations](https://learn.microsoft.com/en-us/typography/opentype/spec/recom#tad)
+- [Google Fonts Guide: Vertical Metrics](https://googlefonts.github.io/gf-guide/metrics.html)
+- [GlyphsApp article on Vertical Metrics](https://glyphsapp.com/learn/vertical-metrics)
