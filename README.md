@@ -4,11 +4,33 @@ A repo for testing and documenting strategies for vertical metrics in fonts.
 
 This repo is in a very early state of progress.
 
-## Suggested vertical metrics
+## Suggested vertical metrics *Still under review
 
 For now, this is partially a hypothesis, based on slightly scattered testing. A key goal of this repo is to test and document more methodically, to determine where and how effective this approach is.
 
-- [ ] add current advised strategy
+Apply to all styles within a family:
+
+```
+# Set up your target line height
+Line Height = UPM * 1.2 # your preferred ratio, probably 1.2 or greater
+
+# hheaAscender must exceed /Agrave, or you should increase your Line Height
+hheaAscender   = Cap Height + ((Line Height - Cap Height) / 2)
+hheaDescender  = Cap Height - hheaAscender
+hheaLineGap    = 0
+
+# typoAscender controls framing in InDesign
+typoAscender = Cap Height
+typoDescender = hheaDescender
+typoLineGap = absolute value of hheaDescender # positive value
+
+# important, or macOS app line height will be wrong in e.g. TextEdit
+useTypoMetrics = False
+
+# Taller height to prevent clipping in MS Word, etc
+winAscent = yMax in family
+winDescent = absolute value of yMin in family # positive value
+```
 
 ## Goals and Scope
 

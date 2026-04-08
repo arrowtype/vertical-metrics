@@ -84,6 +84,12 @@ name = "Rename Glyphs";
 value = (
 "question.gf=question"
 );
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
 }
 );
 instanceInterpolations = {
@@ -97,6 +103,274 @@ values = (
 {
 language = dflt;
 value = "Vm Test 260308 GF";
+}
+);
+}
+);
+},
+{
+customParameters = (
+{
+name = typoAscender;
+value = 980;
+},
+{
+name = typoDescender;
+value = -280;
+},
+{
+name = typoLineGap;
+value = 0;
+},
+{
+name = winAscent;
+value = 1126;
+},
+{
+name = winDescent;
+value = 411;
+},
+{
+name = hheaAscender;
+value = 980;
+},
+{
+name = hheaDescender;
+value = -280;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = "Use Typo Metrics";
+value = 1;
+},
+{
+name = "Rename Glyphs";
+value = (
+"question.gfmin=question"
+);
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 260308 GF Min";
+}
+);
+}
+);
+},
+{
+customParameters = (
+{
+name = hheaAscender;
+value = 980;
+},
+{
+name = hheaDescender;
+value = -280;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = typoAscender;
+value = 700;
+},
+{
+name = typoDescender;
+value = -280;
+},
+{
+name = typoLineGap;
+value = 280;
+},
+{
+name = winAscent;
+value = 1126;
+},
+{
+name = winDescent;
+value = 411;
+},
+{
+name = "Use Typo Metrics";
+value = 0;
+},
+{
+name = "Rename Glyphs";
+value = (
+"question.gfminalt=question"
+);
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 260308 GF Min Alt";
+}
+);
+}
+);
+},
+{
+customParameters = (
+{
+name = hheaAscender;
+value = 1050;
+},
+{
+name = hheaDescender;
+value = -350;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = typoAscender;
+value = 700;
+},
+{
+name = typoDescender;
+value = -350;
+},
+{
+name = typoLineGap;
+value = 350;
+},
+{
+name = winAscent;
+value = 1050;
+},
+{
+name = winDescent;
+value = 350;
+},
+{
+name = "Use Typo Metrics";
+value = 0;
+},
+{
+name = "Rename Glyphs";
+value = (
+"question.t1400=question"
+);
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 260308 Target 1400";
+}
+);
+}
+);
+},
+{
+customParameters = (
+{
+name = hheaAscender;
+value = 1050;
+},
+{
+name = hheaDescender;
+value = -350;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = typoAscender;
+value = 700;
+},
+{
+name = typoDescender;
+value = -350;
+},
+{
+name = typoLineGap;
+value = 350;
+},
+{
+name = winAscent;
+value = 1126;
+},
+{
+name = winDescent;
+value = 411;
+},
+{
+name = "Use Typo Metrics";
+value = 0;
+},
+{
+name = "Rename Glyphs";
+value = (
+"question.t1400b=question"
+);
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 260308 Target 1400b";
 }
 );
 }
