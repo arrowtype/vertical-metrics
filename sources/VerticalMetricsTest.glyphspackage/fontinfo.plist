@@ -102,7 +102,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 260308 GF";
+value = "Vm Test 2026 GF";
 }
 );
 }
@@ -169,7 +169,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 260308 GF Min";
+value = "Vm Test 2026 GF Min";
 }
 );
 }
@@ -236,7 +236,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 260308 GF Min Alt";
+value = "Vm Test 2026 GF Min Alt";
 }
 );
 }
@@ -303,7 +303,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 260308 Target 1400";
+value = "Vm Test 2026 Target 1400";
 }
 );
 }
@@ -370,7 +370,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 260308 Target 1400b";
+value = "Vm Test 2026 Target 1400b";
 }
 );
 }
