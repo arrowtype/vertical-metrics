@@ -4,6 +4,19 @@ A repo for testing and documenting strategies for vertical metrics in fonts.
 
 This repo is a work in (a very early state of) progress.
 
+## Goals and Scope
+
+This repo seeks to test various vertical metrics parameters, in several important/representative apps, to determine a strategy for vertical metrics.
+
+Such a strategy should ideally...
+- Be as consistent as reasonable possible, between different platforms and apps
+- Be intuitive to use and to read, for each major platform and app
+- Be simple enough to describe and adapt to achieve type design goals
+
+The repo will also seek to provide documentation behind new checks contributed to [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/).
+
+This will be based mostly on Latin script and other scripts that are primarily set horizontally, but the documented behavior of metrics can likely help inform any OpenType font, for almost any script.
+
 ## Suggested vertical metrics *Still under review
 
 For now, this is partially a hypothesis, based on slightly scattered testing. A key goal of this repo is to test and document more methodically, to determine where and how effective this approach is.
@@ -32,28 +45,19 @@ winAscent      = yMax in family
 winDescent     = absolute value of yMin in family # positive value
 ```
 
-## Goals and Scope
-
-This repo seeks to test various vertical metrics parameters, in several important/representative apps, to determine a strategy for vertical metrics.
-
-Such a strategy should ideally...
-- Be as consistent as reasonable possible, between different platforms and apps
-- Be intuitive to use and to read, for each major platform and app
-- Be simple enough to describe and adapt to achieve type design goals
-
-The repo will also seek to provide documentation behind new checks contributed to [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/).
-
-This will be based mostly on Latin script and other scripts that are primarily set horizontally, but the documented behavior of metrics can likely help inform any OpenType font, for almost any script.
+If the above terms are unfamiliar to you, read on!
 
 ## What are vertical metrics?
 
-“Vertical metrics” are values recorded in OpenType fonts which text-setting software use to determine the 
+Note! The “ascender” and “descender” values discussed here are specific to the overall line height of fonts. They are (usually) *not* the same as the basic “ascender” and “descender” values shown in a font editor. Those values are mostly to set up helpful design guidelines for drawing letters. The metrics discussed here are a little more technical, and used to determine the default positioning of lines of text within apps.
+
+“Vertical metrics” are values recorded in OpenType fonts which text-setting software use to determine:
 
 1. The offset applied to the first line of text within its space.
 2. (Often) the default distance between lines of text.
 3. (Sometimes) the offset applied between the last line of text and the bottom of its space.
 
-There are three systems for recording these values: `typo`, `hhea`, and `win` values.
+There are three systems for recording these values: `typo`, `hhea`, and `win` values. The specific values this repo focusses on are the following:
 
 - typoAscender
 - typoDescender
@@ -64,6 +68,8 @@ There are three systems for recording these values: `typo`, `hhea`, and `win` va
 - winAscent
 - winDescent
 - useTypoMetrics (Bit 7 of OS/2 fsSelection)
+
+These values have slightly different terms between various font editors and the actual OpenType specification, but they are all fairly similar to the above.
 
 ## What does each of these metrics *really do?*
 
@@ -105,6 +111,7 @@ However, this causes a few issues:
 
 All tested strategies share some basic features:
 - Vertical metrics are set the same for all styles of a family
+
 
 ### Google Fonts
 
