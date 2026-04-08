@@ -122,6 +122,8 @@ However, this causes a few issues:
    9. Maybe create a submission process, if others wish to contribute their own screenshots?
 4. Store those screenshots, with additional notes as needed, in this repo.
 
+![Diagram of Vertical Metrics Test Glyph](docs/img/vm-test-glyph-diagram.png)
+
 ## Tested Strategies
 
 All tested strategies share some basic features:
