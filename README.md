@@ -129,6 +129,16 @@ winDescent     = absolute value of yMin in family # positive value
 # This may need to be greater for scripts outside of Latin, Cyrillic, and Greek (e.g. Devanagari)
 ```
 
+### Google Fonts Min
+
+Similar to "Google Fonts" strategy, but:
+- `typoAscender` (and `hheaAscender`) set equal to top of /Agrave, which is the minimum suggested by the Google Fonts Guide
+
+### Google Fonts Min Alt
+
+Similar to "Google Fonts Min" strategy, but:
+- Typo metrics set similar to Target Line Height strategy, with `typoAscender` at cap height and `typoLineGap` set to make up difference to `hhea`
+
 ### Target Line Height
 
 Similar to Google Fonts strategy, but:
