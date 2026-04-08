@@ -101,29 +101,6 @@ However, this causes a few issues:
 2. MS Word will follow the typo metrics, including for its clipping boundaries – regardless of what win metrics are set.
 3. Because of issues 1 and 2, typo metrics *have to* be set well above the cap height, which can be unintuitive for InDesign users.
 
-
-## Test approach
-
-1. Create a Glyphs source which...
-   1. Uses individual Exports settings to vary vertical metrics for testing different approaches.
-   2. Includes glyphs that contains vertical measurements, which will have alternates which are exported specific to different test exports.
-2. Build via FontMake
-3. Test each export in multiple apps and platforms, with consistent screenshots, to document results.
-   1. Chrome
-      1. Safari?
-      2. Firefox?
-   2. Mac TextEdit (CoreText)
-   3. Adobe InDesign
-   4. Adobe Illustrator
-   5. MS Word on Windows
-   6. MS Word on Mac
-   7. Android?
-   8. iOS?
-   9. Maybe create a submission process, if others wish to contribute their own screenshots?
-4. Store those screenshots, with additional notes as needed, in this repo.
-
-![Diagram of Vertical Metrics Test Glyph](docs/img/vm-test-glyph-diagram.png)
-
 ## Tested Strategies
 
 All tested strategies share some basic features:
@@ -216,11 +193,37 @@ However, there are a few pitfalls of the Google Fonts strategy.
   - It suggests centering caps within the typo/hhea metrics, which is very helpful in web UI, but may not always work well for fonts with atypical sizing relationships. In particular, many script fonts have a very low x-Height (relative to Cap Height), and may also have very tall swashes.
 - It doesn’t allow the designer to start with a *target* line height, and is instead just a series of glyphs to exceed. So, if a designer wants to satisfy the Google Fonts guidelines, but also make a default line height of 1.5x UPM, they have to understand a lot to get there.
 
+## Test approach
+
+1. Create a Glyphs source which...
+   1. Uses individual Exports settings to vary vertical metrics for testing different approaches.
+   2. Includes glyphs that contains vertical measurements, which will have alternates which are exported specific to different test exports. (See diagram below)
+2. Build via FontMake
+3. Test each export in multiple apps and platforms, with consistent screenshots, to document results.
+   1. Chrome
+      1. Safari?
+      2. Firefox?
+   2. Mac TextEdit (CoreText)
+   3. Adobe InDesign
+   4. Adobe Illustrator
+   5. MS Word on Windows
+   6. MS Word on Mac
+   7. Android?
+   8. iOS?
+   9. Maybe create a submission process, if others wish to contribute their own screenshots?
+4. Store those screenshots, with additional notes as needed, in this repo.
+
+![Diagram of Vertical Metrics Test Glyph](docs/img/vm-test-glyph-diagram.png)
+
 ## Test Results
+
+- [ ] come up with more standard way to scale screenshots?
 
 ### InDesign
 
 ![Test results in InDesign](docs/img/screenshot-mac-indesign-260308.png)
+
+- [ ] will update with further tests
 
 ## App Quirks
 
