@@ -1,0 +1,36 @@
+{
+glyphname = hyphen;
+kernLeft = Punct_mid_left;
+kernRight = Punct_mid_right;
+layers = (
+{
+layerId = m01;
+shapes = (
+{
+closed = 1;
+nodes = (
+(52,368,o),
+(52,362,o),
+(52,355,cs),
+(52,240,o),
+(65,224,o),
+(159,224,cs),
+(391,224,l),
+(395,245,o),
+(398,268,o),
+(398,287,cs),
+(398,355,o),
+(382,374,o),
+(325,374,cs),
+(52,374,l)
+);
+}
+);
+userData = {
+com.arrowtype.glyphMarkStatus = fromComponents;
+};
+width = 450;
+}
+);
+unicode = 45;
+}

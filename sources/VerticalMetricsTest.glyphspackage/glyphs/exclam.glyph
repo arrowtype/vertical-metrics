@@ -1,0 +1,71 @@
+{
+glyphname = exclam;
+layers = (
+{
+layerId = m01;
+shapes = (
+{
+closed = 1;
+nodes = (
+(251,355,o),
+(265,463,o),
+(265,529,c),
+(265,641,ls),
+(265,689,o),
+(209,710,o),
+(139,710,cs),
+(114,710,o),
+(95,709,o),
+(72,703,c),
+(81,667,o),
+(85,630,o),
+(85,590,cs),
+(85,535,ls),
+(85,456,o),
+(98,343,o),
+(120,321,cs),
+(139,302,o),
+(172,290,o),
+(220,290,c),
+(235,290,l)
+);
+},
+{
+ref = period;
+}
+);
+userData = {
+com.arrowtype.glyphMarkStatus = needsFixing;
+com.typemytype.robofont.guideline.magnetic.0HIXpdxyWk = 10;
+com.typemytype.robofont.guideline.magnetic.3Lc2waOiu3 = 10;
+com.typemytype.robofont.guideline.magnetic.3dsrirYOvp = 10;
+com.typemytype.robofont.guideline.magnetic.4s2XOj5axK = 10;
+com.typemytype.robofont.guideline.magnetic.85yiFnkgUq = 10;
+com.typemytype.robofont.guideline.magnetic.B8I2y3dbbC = 10;
+com.typemytype.robofont.guideline.magnetic.G1pPRPEdq0 = 10;
+com.typemytype.robofont.guideline.magnetic.MoVHlbBAQQ = 10;
+com.typemytype.robofont.guideline.magnetic.PkahEy7DVO = 10;
+com.typemytype.robofont.guideline.magnetic.TMEIVverWe = 10;
+com.typemytype.robofont.guideline.magnetic.ZArF92iAOQ = 10;
+com.typemytype.robofont.guideline.magnetic.ZnCHYXeDpG = 10;
+com.typemytype.robofont.guideline.magnetic.djqDXfrITQ = 10;
+com.typemytype.robofont.guideline.magnetic.eY1ExmHe0j = 10;
+com.typemytype.robofont.guideline.magnetic.giKhDLJVid = 10;
+com.typemytype.robofont.guideline.magnetic.gsQvqslc3Y = 10;
+com.typemytype.robofont.guideline.magnetic.j6ZPWGyOMM = 10;
+com.typemytype.robofont.guideline.magnetic.mc7XPIDZWF = 10;
+com.typemytype.robofont.guideline.magnetic.msGkUupIdP = 10;
+com.typemytype.robofont.guideline.magnetic.nS0xeD2nH3 = 10;
+com.typemytype.robofont.guideline.magnetic.napQmEmOuQ = 10;
+com.typemytype.robofont.guideline.magnetic.nj6FkiqCgK = 10;
+com.typemytype.robofont.guideline.magnetic.oG523TMpIB = 10;
+com.typemytype.robofont.guideline.magnetic.tT2NCb1SBd = 10;
+com.typemytype.robofont.guideline.magnetic.ufXmhClChE = 10;
+com.typemytype.robofont.guideline.magnetic.vObIPyhbkB = 10;
+com.typemytype.robofont.guideline.magnetic.xzpNoqRtHG = 10;
+};
+width = 350;
+}
+);
+unicode = 33;
+}

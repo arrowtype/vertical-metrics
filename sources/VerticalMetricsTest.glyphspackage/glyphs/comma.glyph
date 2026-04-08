@@ -1,0 +1,106 @@
+{
+glyphname = comma;
+kernLeft = Punct_low_left;
+kernRight = Punct_low_right;
+layers = (
+{
+background = {
+shapes = (
+{
+closed = 1;
+nodes = (
+(377,-88,o),
+(427,44,o),
+(427,136,cs),
+(427,145,o),
+(425,149,o),
+(417,156,c),
+(391,183,o),
+(355,190,o),
+(312,190,cs),
+(227,190,l),
+(227,98,o),
+(177,-33,o),
+(177,-126,cs),
+(177,-136,o),
+(179,-139,o),
+(186,-146,cs),
+(212,-172,o),
+(249,-180,o),
+(292,-180,cs),
+(377,-180,l)
+);
+}
+);
+};
+layerId = m01;
+shapes = (
+{
+closed = 1;
+nodes = (
+(156,-210,o),
+(168,-205,o),
+(179,-193,cs),
+(237,-127,o),
+(289,7,o),
+(289,99,cs),
+(289,163,o),
+(254,188,o),
+(195,188,cs),
+(170,188,o),
+(153,186,o),
+(124,180,c),
+(124,31,o),
+(100,-80,o),
+(53,-170,c),
+(76,-196,o),
+(103,-210,o),
+(134,-210,cs)
+);
+}
+);
+userData = {
+com.arrowtype.glyphMarkStatus = needsFixing;
+com.typemytype.robofont.Image.Brightness = 0;
+com.typemytype.robofont.Image.Contrast = 1;
+com.typemytype.robofont.Image.Saturation = 1;
+com.typemytype.robofont.Image.Sharpness = 0.4;
+com.typemytype.robofont.guideline.magnetic.1eh51WlIRy = 10;
+com.typemytype.robofont.guideline.magnetic.2QM18SQrKv = 10;
+com.typemytype.robofont.guideline.magnetic.7zVAh2AnGp = 10;
+com.typemytype.robofont.guideline.magnetic.93wxzZ07kZ = 10;
+com.typemytype.robofont.guideline.magnetic.9Zfy8hYT0C = 10;
+com.typemytype.robofont.guideline.magnetic.DC6EH0rSgg = 10;
+com.typemytype.robofont.guideline.magnetic.DXa004pwmF = 10;
+com.typemytype.robofont.guideline.magnetic.IwpyqaAzMn = 10;
+com.typemytype.robofont.guideline.magnetic.JeCjrDg7yC = 10;
+com.typemytype.robofont.guideline.magnetic.JfBdPGrVUY = 10;
+com.typemytype.robofont.guideline.magnetic.KpIRpesi34 = 10;
+com.typemytype.robofont.guideline.magnetic.RFk8iBmsf2 = 10;
+com.typemytype.robofont.guideline.magnetic.Y9iFhAEzWd = 10;
+com.typemytype.robofont.guideline.magnetic.ZO7hXKrOSP = 10;
+com.typemytype.robofont.guideline.magnetic.aQrD4AHMvh = 10;
+com.typemytype.robofont.guideline.magnetic.bHm3K5LJKO = 10;
+com.typemytype.robofont.guideline.magnetic.cwqC1LLtAL = 10;
+com.typemytype.robofont.guideline.magnetic.de8h0tWpX6 = 10;
+com.typemytype.robofont.guideline.magnetic.fib7hvTO7s = 10;
+com.typemytype.robofont.guideline.magnetic.i6y9RHvqJN = 10;
+com.typemytype.robofont.guideline.magnetic.jaZJtDo7Z7 = 10;
+com.typemytype.robofont.guideline.magnetic.jyHPdN5n0g = 10;
+com.typemytype.robofont.guideline.magnetic.lAi2qqqA32 = 10;
+com.typemytype.robofont.guideline.magnetic.lVMOfOvhBT = 10;
+com.typemytype.robofont.guideline.magnetic.leNFGB688I = 10;
+com.typemytype.robofont.guideline.magnetic.ngSNiLqtKb = 10;
+com.typemytype.robofont.guideline.magnetic.oC8bWVhKq6 = 10;
+com.typemytype.robofont.guideline.magnetic.oxdDipMbAw = 10;
+com.typemytype.robofont.guideline.magnetic.pGCPyD7vdv = 10;
+com.typemytype.robofont.guideline.magnetic.qXeWGFHPgj = 10;
+com.typemytype.robofont.guideline.magnetic.y3Acqq1lig = 10;
+com.typemytype.robofont.guideline.magnetic.ybLfK6ZThu = 10;
+com.typemytype.robofont.guideline.magnetic.zMIina8zkg = 10;
+};
+width = 350;
+}
+);
+unicode = 44;
+}

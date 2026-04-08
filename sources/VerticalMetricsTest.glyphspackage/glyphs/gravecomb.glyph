@@ -1,0 +1,46 @@
+{
+glyphname = gravecomb;
+layers = (
+{
+anchors = (
+{
+name = _top;
+pos = (301,549);
+}
+);
+layerId = m01;
+shapes = (
+{
+closed = 1;
+nodes = (
+(214,813,o),
+(174,807,o),
+(149,794,cs),
+(130,784,o),
+(125,765,o),
+(130,745,cs),
+(143,693,o),
+(175,655,o),
+(210,633,cs),
+(235,617,o),
+(260,611,o),
+(296,611,cs),
+(325,611,o),
+(349,617,o),
+(372,630,c),
+(310,687,o),
+(281,733,o),
+(260,812,c)
+);
+}
+);
+userData = {
+com.arrowtype.glyphMarkStatus = fromComponents;
+};
+width = 500;
+}
+);
+metricRight = "=|";
+metricWidth = "=500";
+unicode = 768;
+}

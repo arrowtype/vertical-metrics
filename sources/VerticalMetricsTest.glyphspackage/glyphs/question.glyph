@@ -1,0 +1,139 @@
+{
+glyphname = question;
+layers = (
+{
+layerId = m01;
+userData = {
+com.arrowtype.glyphMarkStatus = fromComponents;
+com.typemytype.robofont.Image.Brightness = 0;
+com.typemytype.robofont.Image.Contrast = 1;
+com.typemytype.robofont.Image.Saturation = 1;
+com.typemytype.robofont.Image.Sharpness = 0.4;
+com.typemytype.robofont.guideline.magnetic.0tpcWRobrU = 0;
+com.typemytype.robofont.guideline.magnetic.1HKcmIgvly = 0;
+com.typemytype.robofont.guideline.magnetic.2qhUn3cONS = 0;
+com.typemytype.robofont.guideline.magnetic.39293df7AS = 0;
+com.typemytype.robofont.guideline.magnetic.5Q7NXTGZdQ = 0;
+com.typemytype.robofont.guideline.magnetic.6JaTKKfSn2 = 0;
+com.typemytype.robofont.guideline.magnetic.7q2HOVkRzd = 0;
+com.typemytype.robofont.guideline.magnetic.8iJUtyIu2p = 0;
+com.typemytype.robofont.guideline.magnetic.AgPQp2C7od = 0;
+com.typemytype.robofont.guideline.magnetic.BzP9fZtoCl = 0;
+com.typemytype.robofont.guideline.magnetic.DdLLm33Bgu = 0;
+com.typemytype.robofont.guideline.magnetic.EHYmLn3KoN = 0;
+com.typemytype.robofont.guideline.magnetic.NJzStYZvzX = 0;
+com.typemytype.robofont.guideline.magnetic.OKNNHqF4XR = 0;
+com.typemytype.robofont.guideline.magnetic.QYQEn0T27a = 0;
+com.typemytype.robofont.guideline.magnetic.RFrB2Z8Aco = 0;
+com.typemytype.robofont.guideline.magnetic.SKugKqqKoC = 0;
+com.typemytype.robofont.guideline.magnetic.U4K9f0dV4f = 0;
+com.typemytype.robofont.guideline.magnetic.XJcN4Kk8We = 0;
+com.typemytype.robofont.guideline.magnetic.b3Vda2wuxZ = 0;
+com.typemytype.robofont.guideline.magnetic.de5POlemJP = 0;
+com.typemytype.robofont.guideline.magnetic.elGuQuvwFC = 0;
+com.typemytype.robofont.guideline.magnetic.j1uVRQumBj = 0;
+com.typemytype.robofont.guideline.magnetic.jA2jjvmRGN = 0;
+com.typemytype.robofont.guideline.magnetic.lyOosaJV0t = 0;
+com.typemytype.robofont.guideline.magnetic.mZCeDQmBZx = 0;
+com.typemytype.robofont.guideline.magnetic.p9TAftYCNn = 0;
+com.typemytype.robofont.guideline.magnetic.pS7a7j8exb = 0;
+com.typemytype.robofont.guideline.magnetic.pzeHU5JCcI = 0;
+com.typemytype.robofont.guideline.magnetic.skvQQpHcWe = 0;
+com.typemytype.robofont.guideline.magnetic.w3a4sFusB6 = 0;
+com.typemytype.robofont.guideline.magnetic.xddIAdCtQx = 0;
+com.typemytype.robofont.guideline.magnetic.yYUnGKIJZx = 0;
+};
+width = 600;
+},
+{
+associatedMasterId = m01;
+layerId = "54267E6D-E4C2-454C-9C31-66123AED227B";
+name = 45degrees;
+shapes = (
+{
+closed = 1;
+nodes = (
+(219,720,o),
+(146,700,o),
+(113,667,cs),
+(92,646,o),
+(81,610,o),
+(81,569,cs),
+(81,542,o),
+(84,524,o),
+(92,504,c),
+(96,504,l),
+(159,549,o),
+(227,570,o),
+(312,570,cs),
+(382,570,o),
+(427,551,o),
+(464,506,c),
+(502,560,o),
+(521,620,o),
+(481,659,cs),
+(443,696,o),
+(378,720,o),
+(305,720,cs)
+);
+},
+{
+closed = 1;
+nodes = (
+(455,685,o),
+(375,672,o),
+(332,634,c),
+(375,595,o),
+(384,577,o),
+(384,541,cs),
+(384,512,o),
+(378,486,o),
+(322,447,cs),
+(299,431,ls),
+(227,381,o),
+(213,356,o),
+(213,330,cs),
+(213,326,ls),
+(213,291,o),
+(255,252,o),
+(336,252,cs),
+(344,252,l),
+(344,255,ls),
+(344,282,o),
+(355,305,o),
+(391,327,cs),
+(421,345,ls),
+(504,395,o),
+(535,461,o),
+(535,524,cs),
+(535,527,ls),
+(535,583,o),
+(519,621,o),
+(481,659,cs)
+);
+},
+{
+closed = 1;
+nodes = (
+(384,114,ls),
+(384,177,o),
+(315,186,o),
+(254,186,cs),
+(231,186,o),
+(201,184,o),
+(176,180,c),
+(176,61,ls),
+(176,-2,o),
+(245,-11,o),
+(306,-11,cs),
+(329,-11,o),
+(359,-9,o),
+(384,-5,c)
+);
+}
+);
+width = 600;
+}
+);
+unicode = 63;
+}

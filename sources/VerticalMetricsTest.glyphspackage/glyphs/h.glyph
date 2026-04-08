@@ -1,0 +1,91 @@
+{
+glyphname = h;
+kernLeft = h_left;
+kernRight = n_right;
+layers = (
+{
+anchors = (
+{
+name = bottom;
+pos = (305,0);
+},
+{
+name = top;
+pos = (138,730);
+}
+);
+layerId = m01;
+shapes = (
+{
+closed = 1;
+nodes = (
+(188,-3,o),
+(197,-3,o),
+(215,0,c),
+(215,197,o),
+(215,378,o),
+(215,579,cs),
+(215,716,o),
+(155,756,o),
+(90,756,cs),
+(75,756,o),
+(60,753,o),
+(45,750,c),
+(59,726,o),
+(65,684,o),
+(65,651,cs),
+(65,439,o),
+(65,310,o),
+(65,85,cs),
+(65,40,o),
+(90,-3,o),
+(173,-3,cs)
+);
+},
+{
+closed = 1;
+nodes = (
+(247,333,o),
+(305,385,o),
+(363,385,cs),
+(374,385,o),
+(384,381,o),
+(394,373,c),
+(376,286,o),
+(363,203,o),
+(363,129,cs),
+(363,22,o),
+(407,-6,o),
+(492,-6,cs),
+(513,-6,o),
+(530,-4,o),
+(550,0,c),
+(534,59,o),
+(529,95,o),
+(529,159,c),
+(529,234,o),
+(529,309,o),
+(529,384,c),
+(529,461,o),
+(478,552,o),
+(420,552,cs),
+(337,552,o),
+(258,478,o),
+(222,381,c),
+(194,381,l),
+(194,136,l)
+);
+}
+);
+userData = {
+com.arrowtype.glyphMarkStatus = fromComponents;
+com.typemytype.robofont.Image.Brightness = 0;
+com.typemytype.robofont.Image.Contrast = 1;
+com.typemytype.robofont.Image.Saturation = 1;
+com.typemytype.robofont.Image.Sharpness = 0.4;
+};
+width = 600;
+}
+);
+unicode = 104;
+}

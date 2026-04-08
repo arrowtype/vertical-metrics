@@ -1,0 +1,44 @@
+{
+glyphname = bar;
+layers = (
+{
+layerId = m01;
+shapes = (
+{
+closed = 1;
+nodes = (
+(67,722,o),
+(71,685,o),
+(71,645,cs),
+(71,398,o),
+(71,150,o),
+(71,-97,cs),
+(71,-142,o),
+(112,-164,o),
+(194,-164,cs),
+(211,-164,o),
+(223,-163,o),
+(231,-161,c),
+(231,114,o),
+(231,389,o),
+(231,664,cs),
+(231,724,o),
+(201,765,o),
+(125,765,cs),
+(100,765,o),
+(81,763,o),
+(58,758,c)
+);
+}
+);
+userData = {
+com.typemytype.robofont.Image.Brightness = 0;
+com.typemytype.robofont.Image.Contrast = 1;
+com.typemytype.robofont.Image.Saturation = 1;
+com.typemytype.robofont.Image.Sharpness = 0.4;
+};
+width = 300;
+}
+);
+unicode = 124;
+}
