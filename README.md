@@ -10,7 +10,7 @@ For now, this is partially a hypothesis, based on slightly scattered testing. A 
 
 Apply to all styles within a family:
 
-```
+```py
 # Set up your target line height
 Line Height = UPM * 1.2 # your preferred ratio, probably 1.2 or greater
 
@@ -20,16 +20,16 @@ hheaDescender  = Cap Height - hheaAscender
 hheaLineGap    = 0
 
 # typoAscender controls framing in InDesign
-typoAscender = Cap Height
-typoDescender = hheaDescender
-typoLineGap = absolute value of hheaDescender # positive value
+typoAscender   = Cap Height
+typoDescender  = hheaDescender
+typoLineGap    = absolute value of hheaDescender # positive value
 
 # important, or macOS app line height will be wrong in e.g. TextEdit
 useTypoMetrics = False
 
 # Taller height to prevent clipping in MS Word, etc
-winAscent = yMax in family
-winDescent = absolute value of yMin in family # positive value
+winAscent      = yMax in family
+winDescent     = absolute value of yMin in family # positive value
 ```
 
 ## Goals and Scope
@@ -123,6 +123,19 @@ In the [OpenType specification for OS/2 typoAscender](https://learn.microsoft.co
 > For CJK (Chinese, Japanese, and Korean) fonts that are intended to be used for vertical (as well as horizontal) layout, the required value for sTypoAscender is that which describes the top of the ideographic em-box.
 
 This has not been tested (yet) in this repo, but it is probably sound advice.
+
+
+## Build
+
+First, you need Python installed. You can get it from python.org if you haven’t yet installed it.
+
+Then, you can run the setup:
+
+`make setup`
+
+Finally, run the build:
+
+`make build`
 
 
 ## Contributing
