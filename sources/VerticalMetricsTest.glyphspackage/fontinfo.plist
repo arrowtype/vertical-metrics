@@ -270,11 +270,11 @@ value = 350;
 },
 {
 name = winAscent;
-value = 1050;
+value = 1126;
 },
 {
 name = winDescent;
-value = 350;
+value = 411;
 },
 {
 name = "Use Typo Metrics";
@@ -337,11 +337,11 @@ value = 350;
 },
 {
 name = winAscent;
-value = 1126;
+value = 1050;
 },
 {
 name = winDescent;
-value = 411;
+value = 350;
 },
 {
 name = "Use Typo Metrics";
@@ -350,7 +350,7 @@ value = 0;
 {
 name = "Rename Glyphs";
 value = (
-"question.t1400b=question"
+"question.t1400B=question"
 );
 },
 {
@@ -370,7 +370,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 2026 Target 1400b";
+value = "Vm Test 2026 Target 1400 B";
 }
 );
 }

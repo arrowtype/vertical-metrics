@@ -101,20 +101,6 @@ However, this causes a few issues:
 2. MS Word will follow the typo metrics, including for its clipping boundaries – regardless of what win metrics are set.
 3. Because of issues 1 and 2, typo metrics *have to* be set well above the cap height, which can be unintuitive for InDesign users.
 
-## Why not just use the Google Fonts strategy?
-
-There are several metrics strategies, but one of the most common is [the “Google Fonts” strategy for vertical metrics](googlefonts.github.io/gf-guide/metrics.html). It is used for all (or almost all) fonts on Google Fonts, and these fonts have massive usage. It is also suggested by a collection of checks within [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/), which further reinforces its dominance.
-
-However, there are a few pitfalls of the Google Fonts strategy.
-
-- It is web-focused, and does not create intuitive results for Adobe apps such as InDesign.
-  - It suggests setting the typoAscender to exceed the `Abreveacute`. In InDesign, this pushes the first line of text significantly downwards from the top of the text frame, which can make it challenging to align text. (This is solvable by diving into text frame options, but it would be preferable to not require users do this.)
-- It makes certain promises which are not reproducible. 
-  - In particular, it suggests that setting win metrics to exceed the min and max Y values of a family will prevent Microsoft Word from clipping shapes in the font. However, it also requires setting "Use Typo Metrics" to True, which causes MS Word to ... use Typo metrics ... at which point, clipping still *does* occur. (As of Microsoft Word in Windows 11)
-- It is biased towards the needs of fonts within the context of web UI.
-  - It suggests centering caps within the typo/hhea metrics, which is very helpful in web UI, but may not always work well for fonts with atypical sizing relationships. In particular, many script fonts have a very low x-Height (relative to Cap Height), and may also have very tall swashes.
-- It doesn’t allow the designer to start with a *target* line height, and is instead just a series of glyphs to exceed. So, if a designer wants to satisfy the Google Fonts guidelines, but also make a default line height of 1.5x UPM, they have to understand a lot to get there.
-
 
 ## Test approach
 
@@ -164,13 +150,69 @@ winDescent     = absolute value of yMin in family # positive value
 # This may need to be greater for scripts outside of Latin, Cyrillic, and Greek (e.g. Devanagari)
 ```
 
+### Target Line Height
+
+Similar to Google Fonts strategy, but:
+- Starts with a target line height (and adjusts if it’s too small)
+- Sets `hhea` metrics based on target line height
+- Sets `typoAscender` specifically for InDesign, then uses `typoLineGap` to make up the difference to `hhea` line height
+- Sets `useTypoMetrics` to False, to allow hhea and win metrics to function well in other apps
+
+```py
+# Set up your target line height
+Line Height = UPM * 1.4
+
+# hheaAscender must exceed /Agrave, or you should increase your Line Height
+hheaAscender   = Cap Height + ((Line Height - Cap Height) / 2)
+hheaDescender  = Cap Height - hheaAscender
+hheaLineGap    = 0
+
+# typoAscender controls framing in InDesign
+typoAscender   = Cap Height
+typoDescender  = hheaDescender
+typoLineGap    = absolute value of hheaDescender # positive value
+
+# important, or macOS app line height will be wrong in e.g. TextEdit
+useTypoMetrics = False
+
+# Sets default line heights and clipping heights in MS Word, etc
+winAscent      = yMax in family
+winDescent     = absolute value of yMin in family # positive value
+```
+
+### Target Line Height B
+
+Like "Target Line Height", but with the following changes:
+- Matches `win` values to `hhea`, to match line heights at the expense of some possible clipping
+
+```py
+# Sets default line heights and clipping heights in MS Word, etc
+winAscent      = hheaAscender
+winDescent     = absolute value of hheaDescender # positive value
+```
+
 ### Adobe Fonts
 
-- [ ] todo: write this
+- [ ] todo: add this test
 
 ### GlyphsApp
 
-- [ ] todo: write this
+- [ ] todo: add this test
+
+
+## Why not just use the Google Fonts strategy?
+
+There are several metrics strategies, but one of the most common is [the “Google Fonts” strategy for vertical metrics](googlefonts.github.io/gf-guide/metrics.html). It is used for all (or almost all) fonts on Google Fonts, and these fonts have massive usage. It is also suggested by a collection of checks within [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/), which further reinforces its dominance.
+
+However, there are a few pitfalls of the Google Fonts strategy.
+
+- It is web-focused, and does not create intuitive results for Adobe apps such as InDesign.
+  - It suggests setting the typoAscender to exceed the `Abreveacute`. In InDesign, this pushes the first line of text significantly downwards from the top of the text frame, which can make it challenging to align text. (This is solvable by diving into text frame options, but it would be preferable to not require users do this.)
+- It makes certain promises which are not reproducible. 
+  - In particular, it suggests that setting win metrics to exceed the min and max Y values of a family will prevent Microsoft Word from clipping shapes in the font. However, it also requires setting "Use Typo Metrics" to True, which causes MS Word to ... use Typo metrics ... at which point, clipping still *does* occur. (As of Microsoft Word in Windows 11)
+- It is biased towards the needs of fonts within the context of web UI.
+  - It suggests centering caps within the typo/hhea metrics, which is very helpful in web UI, but may not always work well for fonts with atypical sizing relationships. In particular, many script fonts have a very low x-Height (relative to Cap Height), and may also have very tall swashes.
+- It doesn’t allow the designer to start with a *target* line height, and is instead just a series of glyphs to exceed. So, if a designer wants to satisfy the Google Fonts guidelines, but also make a default line height of 1.5x UPM, they have to understand a lot to get there.
 
 ## Test Results
 
