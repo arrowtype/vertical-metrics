@@ -307,7 +307,7 @@ Test: hheaAscender slightly lower than /Agrave
 
 If `hheaAscender` is lower than the height of the /Agrave font, macOS ignores hhea metrics, and instead gives much taller height.
 
-Notably, it doesn’t matter what typoAscender is, or whether `useTypoMetrics` is true. It doesn’t follow win Metrics.
+Notably, it doesn’t matter what typoAscender is, or whether `useTypoMetrics` is true. It doesn’t follow win Metrics. It appears to assign a line height of 150% of the UPM.
 
 ![Test: hheaAscender slightly lower than /Agrave](docs/screenshots/mac-textedit-vmtest-linespace_1.0-agrave_exceeds_agrave-screenshot-260315.png)
 
@@ -318,6 +318,39 @@ Notably, it doesn’t matter what typoAscender is, or whether `useTypoMetrics` i
 
 - [ ] test on latest version of macOS
 - [ ] test and screenshot impact of /Agrave exceeding typo ascender, and also hhea ascender
+
+## Windows 11 Word
+
+Observations
+- Default line spacing is 1.08, with 8pt after each paragraph.
+- To understand how MS Word decides line height, you need to adjust to Line Spacing: Single.
+- MS Word uses Win metrics to set line metrics, or typo metrics if `useTypoMetrics` is True.
+- If `useTypoMetrics` is True, shapes get clipped at the typo metrics. If `useTypoMetrics` is False, shapes do not get clipped aside from tall parts of the first line on a page.
+- If any clipping is unacceptable, it is important to set Win metrics past the highest/lowest coordinates. If `useTypoMetrics` is True, typo metrics must also be set past the highest/lowest coordinates.
+- Aside: it is important to keep short family names (31 characters or fewer) for test fonts, or the /Abreveacute will not be displayed. See Font Bakery check [name/family_and_style_max_length](https://github.com/fonttools/fontbakery/blob/9a85e003d36ebfbbfe68c6d362e5db5a6434332c/Lib/fontbakery/checks/name/family_and_style_max_length.py).
+
+Opinions
+- "Target Line Height B" works best here. It is nice to set Win metrics to match hhea metrics, for better consistency between Word and other apps. If your target line height is close to your highest/lowest points, only the first line may have a small amount of clipping in the tallest shapes. If this is unacceptable, it is better to set win metrics equal to highest/lowest points.
+- The Google Fonts approach also works relatively well, but it is pretty tall, and it would clip anything taller than the Abreveacute (such as possible tall swashes).
+
+The following screenshots have Line Spacing set to “Single.” By default, they are slight taller (1.08).
+
+![Windows 11 Word: "Target 1400 B" strategy]()
+![Windows 11 Word: "Target 1400" strategy]()
+![Windows 11 Word: "Google Fonts" strategy]()
+
+<details>
+<summary>
+Additional test screenshots from Windows
+</summary>
+
+![Windows 11 Word: default line spacing settings](docs/screenshots/win11-word-linespace-options-defaults.png)
+
+![GF Min]()
+![GF Min Alt]()
+![Glyphs Default]()
+
+</details>
 
 ## Chrome
 

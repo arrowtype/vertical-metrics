@@ -536,7 +536,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 2026 Target 1400 useTypo";
+value = "Vm Test 2026 Tgt1400 useTypo";
 }
 );
 }
@@ -603,7 +603,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 2026 GF Min Alt Agrave";
+value = "Vm Test 2026 GFMinAlt Agrave";
 }
 );
 }
@@ -670,7 +670,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 2026 GF Min Alt Agrave Tall Win";
+value = "Vm Test 26 GFMinAlt Agr TallWin";
 }
 );
 }
