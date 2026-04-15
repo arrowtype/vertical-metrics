@@ -412,7 +412,7 @@ customParameters = (
 {
 name = "Rename Glyphs";
 value = (
-"question.glyphsapp=question"
+"question.adobelegacy=question"
 );
 },
 {
@@ -420,12 +420,49 @@ name = "Remove Glyphs";
 value = (
 "question.*"
 );
+},
+{
+name = hheaAscender;
+value = 750;
+},
+{
+name = hheaDescender;
+value = -150;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = typoAscender;
+value = 750;
+},
+{
+name = typoDescender;
+value = -150;
+},
+{
+name = typoLineGap;
+value = 350;
+},
+{
+name = winAscent;
+value = 1050;
+},
+{
+name = winDescent;
+value = 350;
+},
+{
+name = "Use Typo Metrics";
+value = 0;
 }
 );
+exports = 0;
 instanceInterpolations = {
 m01 = 1;
 };
-name = Regular;
+name = "TBD!";
 properties = (
 {
 key = familyNames;
