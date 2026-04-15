@@ -107,6 +107,8 @@ However, this causes a few issues:
 2. MS Word will follow the typo metrics, including for its clipping boundaries – regardless of what win metrics are set.
 3. Because of issues 1 and 2, typo metrics *have to* be set well above the cap height, which can be unintuitive for InDesign users.
 
+- [ ] re-test MS Word clipping at typo values. [According to GlyphsApp docs, this should only happen in pre-2006 Office](https://glyphsapp.com/learn/vertical-metrics#:~:text=legacy%20Office%20software%20(i.e.%2C%20pre%2D2006)%20may%20apply%20clipping%20at%20the%20typo%20values%20rather%20than%20at%20the%20win%20values.)... but I am pretty sure it happens in my current version of MS Word for Windows 11
+
 ## Tested Strategies
 
 All tested strategies share some basic features:
@@ -189,11 +191,35 @@ winDescent     = absolute value of hheaDescender # positive value
 
 ### Adobe Fonts
 
+- [ ] todo: add this test? GlyphsApp does call this a "Legacy" strategy, however
+
+### GlyphsApp Defaults
+
+- [ ] todo: determine GlyphsApp Defaults
 - [ ] todo: add this test
 
-### GlyphsApp
+Values for Recursive (VmTest):
 
-- [ ] todo: add this test
+```py
+# highest and lowest Y coordinates in the font are y=1300 and y=-700
+
+# typoAscender controls framing in InDesign
+typoAscender   = Basic "ascender" value of font
+typoDescender  = Basic "descender" value of font
+typoLineGap    = UPM - typoAscender
+
+# hheaAscender must exceed /Agrave, or you should increase your Line Height
+hheaAscender   = (UPM * 1.2) - basic "descender" value of font
+hheaDescender  = typoDescender
+hheaLineGap    = 0
+
+useTypoMetrics = False
+
+# Sets default line heights and clipping heights in MS Word, etc
+winAscent      = hheaAscender
+winDescent     = absolute value of hheaDescender
+
+```
 
 
 ## Why not just use the Google Fonts strategy?

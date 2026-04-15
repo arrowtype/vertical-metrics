@@ -1,5 +1,5 @@
 {
-.appVersion = "3520";
+.appVersion = "3523";
 .formatVersion = 3;
 customParameters = (
 {
@@ -371,6 +371,68 @@ values = (
 {
 language = dflt;
 value = "Vm Test 2026 Target 1400 B";
+}
+);
+}
+);
+},
+{
+customParameters = (
+{
+name = "Rename Glyphs";
+value = (
+"question.glyphsapp=question"
+);
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 2026 Glyphs Dflt";
+}
+);
+}
+);
+},
+{
+customParameters = (
+{
+name = "Rename Glyphs";
+value = (
+"question.glyphsapp=question"
+);
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 2026 Adobe Legacy";
 }
 );
 }
