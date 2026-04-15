@@ -13,3 +13,7 @@ setup:
 build:
 	rm -rf $(OUTPUTDIR)
 	$(VENV)/bin/fontmake -o ttf -i -g '$(GLYPHS)' --output-dir $(OUTPUTDIR)
+
+install:
+	rm -rf ~/Library/Fonts/00-vertical-metrics-tests
+	cp -r fonts ~/Library/Fonts/00-vertical-metrics-tests
