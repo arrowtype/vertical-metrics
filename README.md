@@ -335,9 +335,9 @@ Opinions
 
 The following screenshots have Line Spacing set to “Single.” By default, they are slight taller (1.08).
 
-![Windows 11 Word: "Target 1400 B" strategy]()
-![Windows 11 Word: "Target 1400" strategy]()
-![Windows 11 Word: "Google Fonts" strategy]()
+![Windows 11 Word: "Target 1400 B" strategy](docs/screenshots/win11-word-Target1400B.png)
+![Windows 11 Word: "Target 1400" strategy](docs/screenshots/win11-word-Target1400.png)
+![Windows 11 Word: "Google Fonts" strategy](docs/screenshots/win11-word-GF.png)
 
 <details>
 <summary>
@@ -346,13 +346,21 @@ Additional test screenshots from Windows
 
 ![Windows 11 Word: default line spacing settings](docs/screenshots/win11-word-linespace-options-defaults.png)
 
-![GF Min]()
-![GF Min Alt]()
-![Glyphs Default]()
+![GF Min](docs/screenshots/win11-word-GFMin.png)
+![GF Min Alt](docs/screenshots/win11-word-GFMinAlt.png)
+![Glyphs Default](docs/screenshots/win11-word-GlyphsDefault.png)
 
 </details>
 
 ## Chrome
+
+- [ ] TODO: test the following, and edit details if necessary.
+
+Previous testing has shown that Chrome follows hhea metrics, or typo metrics if `useTypoMetrics` is True.
+
+This is only the case for the default line height, shown when `line-height` CSS is not set.
+
+When `line-height` CSS *is* set, the line height is based on the font’s UPM.
 
 - [ ] screenshot with `line-height` CSS set
 - [ ] screenshot without `line-height` CSS set
