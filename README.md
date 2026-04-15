@@ -256,7 +256,7 @@ However, there are a few pitfalls of the Google Fonts strategy.
    9. Maybe create a submission process, if others wish to contribute their own screenshots?
 4. Store those screenshots, with additional notes as needed, in this repo.
 
-![Diagram of Vertical Metrics Test Glyph](docs/img/vm-test-glyph-diagram.png)
+![Diagram of Vertical Metrics Test Glyph](docs/screenshots/vm-test-glyph-diagram.png)
 
 ## Test Results
 
@@ -264,9 +264,67 @@ However, there are a few pitfalls of the Google Fonts strategy.
 
 ### InDesign
 
-![Test results in InDesign](docs/img/screenshot-mac-indesign-260308.png)
+Observations:
+- Follows typo metrics for top alignment, regardless of `useTypoMetrics` setting.
+- Gives default line height of 120% (Justification > Auto Leading, Shift+Command+Option+J), regardless of font metrics.
 
-- [ ] will update with further tests
+Opinions:
+- Reasonable results come from setting typoAscender to Cap Height or basic Ascender value, with `useTypoMetrics` set to False.
+- Google Fonts approaches result in an unintuitive space at the top of text frames.
+
+![Test results in InDesign](docs/screenshots/screenshot-mac-indesign-260315.png)
+
+### macOS TextEdit (CoreText)
+
+Observations:
+- TextEdit gives a default Line Space of 1.2, and bases this on the distance of `hheaDescender` to `hheaAscender`
+- The standard Google Fonts approach yields line heights that are tall relative to other approaches (about 155% of UPM, vs around 140%).
+- TextEdit bases line heights on hhea metrics, regardless of `useTypoMetrics` setting.
+- If the hheaAscender is lower than the y Max of a font, shapes in the first line which exceed the hheaAscender, will be cut off.
+
+Opinions:
+- 
+
+At default Line Space of 1.2:
+![Vertical metrics tests in TextEdit at default Line Space of 1.2](docs/screenshots/mac-textedit-vmtest-linespace_1.2_default-screenshot-260315.png)
+
+At default Line Space of 1.0:
+![Vertical metrics tests in TextEdit at default Line Space of 1.2](docs/screenshots/mac-textedit-vmtest-linespace_1.2_default-screenshot-260315.png)
+
+<details>
+<summary>
+TextEdit bases line heights on hhea metrics, even if `useTypoMetrics` setting is True
+</summary>
+
+![TextEdit testing 'use Typo metrics' setting](docs/screenshots/mac-textedit-vmtest-linespace_1.0-useTypoMetrics-screenshot-260315.png)
+
+</details>
+
+<details>
+<summary>
+Test: hheaAscender slightly lower than /Agrave
+</summary>
+
+If `hheaAscender` is lower than the height of the /Agrave font, macOS ignores hhea metrics, and instead gives much taller height.
+
+Notably, it doesn’t matter what typoAscender is, or whether `useTypoMetrics` is true. It doesn’t follow win Metrics.
+
+![Test: hheaAscender slightly lower than /Agrave](docs/screenshots/mac-textedit-vmtest-linespace_1.0-agrave_exceeds_agrave-screenshot-260315.png)
+
+![Test: hheaAscender slightly lower than /Agrave, win metrics are very tall](docs/screenshots/mac-textedit-vmtest-linespace_1.0-agrave_exceeds_agrave_tall_win_metrics-screenshot-260315.png)
+
+</details>
+
+
+- [ ] test on latest version of macOS
+- [ ] test and screenshot impact of /Agrave exceeding typo ascender, and also hhea ascender
+
+## Chrome
+
+- [ ] screenshot with `line-height` CSS set
+- [ ] screenshot without `line-height` CSS set
+- [ ] Determine whether Firefox and Safari match Chrome
+
 
 ## App Quirks
 

@@ -474,6 +474,207 @@ value = "Vm Test 2026 Adobe Legacy";
 );
 }
 );
+},
+{
+customParameters = (
+{
+name = hheaAscender;
+value = 1050;
+},
+{
+name = hheaDescender;
+value = -350;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = typoAscender;
+value = 700;
+},
+{
+name = typoDescender;
+value = -350;
+},
+{
+name = typoLineGap;
+value = 350;
+},
+{
+name = winAscent;
+value = 1126;
+},
+{
+name = winDescent;
+value = 411;
+},
+{
+name = "Use Typo Metrics";
+value = 1;
+},
+{
+name = "Rename Glyphs";
+value = (
+"question.t1400useTypo=question"
+);
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 2026 Target 1400 useTypo";
+}
+);
+}
+);
+},
+{
+customParameters = (
+{
+name = hheaAscender;
+value = 960;
+},
+{
+name = hheaDescender;
+value = -280;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = typoAscender;
+value = 700;
+},
+{
+name = typoDescender;
+value = -280;
+},
+{
+name = typoLineGap;
+value = 280;
+},
+{
+name = winAscent;
+value = 1126;
+},
+{
+name = winDescent;
+value = 411;
+},
+{
+name = "Use Typo Metrics";
+value = 1;
+},
+{
+name = "Rename Glyphs";
+value = (
+"question.gfminalt_agrave=question"
+);
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 2026 GF Min Alt Agrave";
+}
+);
+}
+);
+},
+{
+customParameters = (
+{
+name = hheaAscender;
+value = 960;
+},
+{
+name = hheaDescender;
+value = -280;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = typoAscender;
+value = 700;
+},
+{
+name = typoDescender;
+value = -280;
+},
+{
+name = typoLineGap;
+value = 280;
+},
+{
+name = winAscent;
+value = 1700;
+},
+{
+name = winDescent;
+value = 800;
+},
+{
+name = "Use Typo Metrics";
+value = 1;
+},
+{
+name = "Rename Glyphs";
+value = (
+"question.gfminalt_agrave_tallwin=question"
+);
+},
+{
+name = "Remove Glyphs";
+value = (
+"question.*"
+);
+}
+);
+instanceInterpolations = {
+m01 = 1;
+};
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 2026 GF Min Alt Agrave Tall Win";
+}
+);
+}
+);
 }
 );
 metrics = (
