@@ -2,7 +2,9 @@
 
 A repo for testing and documenting strategies for vertical metrics in fonts.
 
-This repo is a work in (a very early state of) progress.
+> [!WARNING]  
+> This repo is a work in (a very early state of) progress. 
+> It is currently a space for keeping notes and forming thoughts.
 
 ## Goals and Scope
 
@@ -25,9 +27,9 @@ Apply to all styles within a family:
 
 ```py
 # Set up your target line height
-Line Height = UPM * 1.2 # your preferred ratio, probably 1.2 or greater
+Line Height = UPM * 1.4 # your preferred ratio, probably at least 1.2 or greater
 
-# hheaAscender must exceed /Agrave, or you should increase your Line Height
+# hheaAscender must exceed /Agrave, or you should increase your target Line Height
 hheaAscender   = Cap Height + ((Line Height - Cap Height) / 2)
 hheaDescender  = Cap Height - hheaAscender
 hheaLineGap    = 0
@@ -94,7 +96,7 @@ Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, 
 
 ### `typo` metrics
 
-Generally, these set the top and bottom of lines in Adobe InDesign.
+Generally, these set the top and bottom of lines of text in Adobe InDesign.
 
 Most importantly, the `typoAscender` determines how a given font aligns to the top of text frames, by default.
 
@@ -281,6 +283,18 @@ Opinions:
 - Google Fonts approaches result in an unintuitive space at the top of text frames.
 
 ![Test results in InDesign](docs/screenshots/screenshot-mac-indesign-260315.png)
+
+### Illustrator
+
+Vertical metrics have little to no bearing on font alignment in Illustrator.
+
+By default, fonts are aligned so that the top of lowercase ascenders sets the offset from the top of the frame.
+
+- In “Area Type” mode (for text blocks), the top of lowercase ascenders sets the offset from the top of the frame, and the user controls the rest.
+- In “Point Type” mode (for short bits of text), the minimum text frame top is set by the lowercase ascenders, and will scale if taller glyphs are typed. The minimum text frame bottom appears to be set by the lowest y value in the font*.
+
+- [ ] ? determine which ascencder
+- [ ] ? test for what sets bottom of Point Type text frame
 
 ### macOS TextEdit (CoreText)
 
