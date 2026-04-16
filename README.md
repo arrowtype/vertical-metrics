@@ -49,7 +49,11 @@ If the above terms are unfamiliar to you, read on!
 
 ## What are vertical metrics?
 
-Note! The “ascender” and “descender” values discussed here are specific to the overall line height of fonts. They are (usually) *not* the same as the basic “ascender” and “descender” values shown in a font editor. Those values are mostly to set up helpful design guidelines for drawing letters. The metrics discussed here are a little more technical, and used to determine the default positioning of lines of text within apps.
+The metrics discussed here are a little more technical, and used to determine the default positioning of lines of text within apps.
+
+> [!NOTE]  
+>  The “ascender” and “descender” values discussed here are specific to the overall line height of fonts. They are *not* the same as the basic “ascender” and “descender” values set in most font editors. Those basic values are mostly to set up helpful design guidelines for drawing letters, though they are sometimes used to determine actual vertical metrics values. Usually, the vertical metrics discussed here are set in custom parameters or other slightly deeper font info settings.
+> See [Setting vertical metrics in font editors](#setting-vertical-metrics-in-font-editors), below, for more details.
 
 “Vertical metrics” are values recorded in OpenType fonts which text-setting software use to determine:
 
@@ -81,6 +85,8 @@ Generally, these set the top and bottom of lines in:
 - Chrome
 - macOS apps like TextEdit, which use CoreText
 
+For centered UI text (in buttons, etc) on the web, it is important for the full cap-height area to be centered between `hheaAscender` and `hheaDescender`.
+
 Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, the system gives the font a significantly larger line height.
 
 - [ ] Test: what happens in other web browsers?
@@ -89,6 +95,8 @@ Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, 
 ### `typo` metrics
 
 Generally, these set the top and bottom of lines in Adobe InDesign.
+
+Most importantly, the `typoAscender` determines how a given font aligns to the top of text frames, by default.
 
 - [ ] Test: what happens in other Adobe apps?
 
@@ -374,7 +382,7 @@ When `line-height` CSS *is* set, the line height is based on the font’s UPM.
   - Sets top of text based on typoAscender. This can be changed per text frame: right click on text frame, go to Text Frame Options (Command+B) > Baseline Options > First Baseline, and you can choose a different Offset basis.
 
 
-## Setting Vertical Metrics in various font editors
+## Setting vertical vetrics in font editors
 
 - GlyphsApp
 - RoboFont
