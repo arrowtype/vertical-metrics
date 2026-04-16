@@ -19,9 +19,10 @@ The repo will also seek to provide documentation behind new checks contributed t
 
 This will be based mostly on Latin script and other scripts that are primarily set horizontally, but the documented behavior of metrics can likely help inform any OpenType font, for almost any script.
 
-## Suggested vertical metrics *Still under review
+## Recommended vertical metrics
 
-For now, this is partially a hypothesis, based on slightly scattered testing. A key goal of this repo is to test and document more methodically, to determine where and how effective this approach is.
+> [!WARNING]  
+> This recommendation is an evolving hypothesis, based on slightly scattered testing. A key goal of this repo is to test and document vertical metrics effects methodically, to determine where and how effective various approaches are.
 
 Apply to all styles within a family:
 
