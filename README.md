@@ -382,7 +382,7 @@ When `line-height` CSS *is* set, the line height is based on the font’s UPM.
   - Sets top of text based on typoAscender. This can be changed per text frame: right click on text frame, go to Text Frame Options (Command+B) > Baseline Options > First Baseline, and you can choose a different Offset basis.
 
 
-## Setting vertical vetrics in font editors
+## Setting vertical metrics in font editors
 
 - GlyphsApp
 - RoboFont
