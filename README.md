@@ -44,8 +44,8 @@ typoLineGap    = absolute value of hheaDescender # positive value
 useTypoMetrics = False
 
 # Sets default line heights and clipping heights in MS Word, etc
-winAscent      = yMax in family
-winDescent     = absolute value of yMin in family # positive value
+winAscent      = yMax in family # or hheaAscender, if this is greater than yMax
+winDescent     = absolute value of yMin in family # positive value # or absolute value hheaDescender, if this is greater than yMin
 ```
 
 If the above terms are unfamiliar to you, read on!
