@@ -22,7 +22,7 @@ This will be based mostly on Latin script and other scripts that are primarily s
 ## Recommended vertical metrics
 
 > [!WARNING]  
-> This recommendation is an evolving hypothesis, based on slightly scattered testing. A key goal of this repo is to test and document vertical metrics effects methodically, to determine where and how effective various approaches are.
+> This recommendation is an evolving hypothesis, based on slightly scattered testing. A key goal of this repo is to test and document vertical metrics effects methodically, to determine and record how various approaches work in common user environments.
 
 Apply to all styles within a family:
 
