@@ -82,9 +82,19 @@ The exact names for the above values have slightly different labels between vari
 
 Based on testing, how can we describe the effects of each set of metrics?
 
-### `hhea` metrics
+In the OpenType spec for the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea), it says: 
 
-In the OpenType spec for the `hhea` table, it says: “The ascender, descender and linegap values in [the hhea] table are Apple specific; see [Apple's specification](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6hhea.html) for details regarding Apple platforms. The sTypoAscender, sTypoDescender and sTypoLineGap fields in the OS/2 table are used on the Windows platform, and are recommended for new text-layout implementations.”
+> The ascender, descender and linegap values in [the hhea] table are Apple specific; see [Apple's specification](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6hhea.html) for details regarding Apple platforms. The sTypoAscender, sTypoDescender and sTypoLineGap fields in the OS/2 table are used on the Windows platform, and are recommended for new text-layout implementations.”
+
+The Apple `hhea` documentation is not much more specific:
+
+- ascent:	Distance from baseline of highest ascender
+- descent: Distance from baseline of lowest descender
+- lineGap: typographic line gap
+
+So, let’s go deeper and see what values actually affect which apps, and how.
+
+### `hhea` metrics
 
 Generally, these set the top and bottom of lines in:
 - Chrome on Mac
@@ -104,6 +114,8 @@ Generally, these set the top and bottom of lines of text in Adobe InDesign.
 Most importantly, the `typoAscender` determines how a given font aligns to the top of text frames, by default.
 
 - [ ] Test: what happens in other Adobe apps?
+- [ ] Test: is this also true for Adobe apps on Windows? (It must be... right?)
+- [ ] Test: what happens in Affinity apps, such as Affinity Designer and Affinity Publisher?
 
 ### `win` metrics
 
