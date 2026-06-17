@@ -66,17 +66,17 @@ The metrics discussed here are a little more technical, and used to determine th
 
 There are three systems for recording these values: `typo`, `hhea`, and `win` values. The specific values this repo focusses on are the following:
 
-- typoAscender
-- typoDescender
-- typoLineGap
-- hheaAscender
-- hheaDescender
-- hheaLineGap
-- winAscent
-- winDescent
-- useTypoMetrics (Bit 7 of OS/2 fsSelection)
+- **hheaAscender** – the `ascender` value of the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
+- **hheaDescender** – the `descender` value of the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
+- **hheaLineGap** – the `lineGap` value of the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
+- **typoAscender** – the [`sTypoAscender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender) value of the OS/2 table
+- **typoDescender** – the [`sTypoDescender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypodescender) value of the OS/2 table
+- **typoLineGap** – the [`sTypoLineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypolinegap) value of the OS/2 table
+- **winAscent** – the [`usWinAscent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswinascent) value of the OS/2 table
+- **winDescent** – the [`usWinDescent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswindescent) value of the OS/2 table
+- **useTypoMetrics** – Bit 7 of the [`fsSelection`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#fsselection) value of the OS/2 table. (This is a uint16 value, which are numbered 15 to 0, so Bit 7 is the eigth digit when counted from the right: `00000000 1️⃣0000000`.)
 
-These values have slightly different terms between various font editors and the actual OpenType specification, but they are all fairly similar to the above.
+The exact names for the above values have slightly different labels between various font editors and the actual OpenType specification, but they are all fairly similar to the above.
 
 ## What does each of these metrics *really do?*
 
@@ -84,8 +84,10 @@ Based on testing, how can we describe the effects of each set of metrics?
 
 ### `hhea` metrics
 
+In the OpenType spec for the `hhea` table, it says: “The ascender, descender and linegap values in [the hhea] table are Apple specific; see [Apple's specification](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6hhea.html) for details regarding Apple platforms. The sTypoAscender, sTypoDescender and sTypoLineGap fields in the OS/2 table are used on the Windows platform, and are recommended for new text-layout implementations.”
+
 Generally, these set the top and bottom of lines in:
-- Chrome
+- Chrome on Mac
 - macOS apps like TextEdit, which use CoreText
 
 For centered UI text (in buttons, etc) on the web, it is important for the full cap-height area to be centered between `hheaAscender` and `hheaDescender`.
