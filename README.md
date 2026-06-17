@@ -74,7 +74,7 @@ There are three systems for recording these values: `typo`, `hhea`, and `win` va
 - **typoLineGap** – the [`sTypoLineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypolinegap) value of the OS/2 table
 - **winAscent** – the [`usWinAscent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswinascent) value of the OS/2 table
 - **winDescent** – the [`usWinDescent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswindescent) value of the OS/2 table
-- **useTypoMetrics** – Bit 7 of the [`fsSelection`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#fsselection) value of the OS/2 table. (This is a uint16 value, which are numbered 15 to 0, so Bit 7 is the eigth digit when counted from the right: `00000000 1️⃣0000000`.)
+- **useTypoMetrics** – Bit 7 of the [`fsSelection`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#fsselection) value of the OS/2 table. (fsSelection is a uint16 value, which are numbered 15 to 0, so Bit 7 is in the _eigth_ column when counted from the right: `00000000 1️⃣0000000`.)
 
 The exact names for the above values have slightly different labels between various font editors and the actual OpenType specification, but they are all fairly similar to the above.
 
