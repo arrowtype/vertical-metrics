@@ -106,6 +106,8 @@ Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, 
 
 - [ ] Test: what happens in other web browsers?
 - [ ] Test: is Chrome on Windows the same as Chrome on Mac, or not?
+- [ ] Test: what happens in Chrome on Android?
+- [ ] Test (if possible): what about Android apps?
 
 ### `typo` metrics
 
