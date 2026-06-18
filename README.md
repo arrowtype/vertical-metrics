@@ -206,10 +206,7 @@ winDescent     = absolute value of hheaDescender # positive value
 
 ### GlyphsApp Defaults
 
-- [ ] todo: determine GlyphsApp Defaults
-- [ ] todo: add this test
-
-Values for Recursive (VmTest):
+Based on some experimentation, it seems that the GlyphsApp default strategy (if custom parameters are left unset) is the following.
 
 ```py
 # highest and lowest Y coordinates in the font are y=1300 and y=-700
@@ -229,7 +226,6 @@ useTypoMetrics = False
 # Sets default line heights and clipping heights in MS Word, etc
 winAscent      = hheaAscender
 winDescent     = absolute value of hheaDescender
-
 ```
 
 
@@ -239,10 +235,9 @@ There are several metrics strategies, but one of the most common is [the “Goog
 
 However, there are a few pitfalls of the Google Fonts strategy.
 
-- It is web-focused, and does not create intuitive results for Adobe apps such as InDesign.
+- It is web-focused, and does not create intuitive results for Adobe InDesign.
   - It suggests setting the typoAscender to exceed the `Abreveacute`. In InDesign, this pushes the first line of text significantly downwards from the top of the text frame, which can make it challenging to align text. (This is solvable by diving into text frame options, but it would be preferable to not require users do this.)
-- It makes certain promises which are not reproducible. 
-  - In particular, it suggests that setting win metrics to exceed the min and max Y values of a family will prevent Microsoft Word from clipping shapes in the font. However, it also requires setting "Use Typo Metrics" to True, which causes MS Word to ... use Typo metrics ... at which point, clipping still *does* occur. (As of Microsoft Word in Windows 11)
+- It suggests that setting win metrics to exceed the min and max Y values of a family will prevent Microsoft Word from clipping shapes in the font. However, it also requires setting "Use Typo Metrics" to True, which causes MS Word to ... use Typo metrics ... at which point, clipping still *does* occur (as of Microsoft Word in Windows 11).
 - It is biased towards the needs of fonts within the context of web UI.
   - It suggests centering caps within the typo/hhea metrics, which is very helpful in web UI, but may not always work well for fonts with atypical sizing relationships. In particular, many script fonts have a very low x-Height (relative to Cap Height), and may also have very tall swashes.
 - It doesn’t allow the designer to start with a *target* line height, and is instead just a series of glyphs to exceed. So, if a designer wants to satisfy the Google Fonts guidelines, but also make a default line height of 1.5x UPM, they have to understand a lot to get there.
