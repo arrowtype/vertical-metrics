@@ -141,6 +141,7 @@ However, this causes a few issues:
 2. MS Word will follow the typo metrics, including for its clipping boundaries – regardless of what win metrics are set.
 3. Because of issues 1 and 2, typo metrics *have to* be set well above the cap height, which can be unintuitive for InDesign users.
 4. Chrome on Mac still follows hhea, while Chrome on Windows follows typo. So, browsers can have mismatches between platforms.
+  1. When useTypoMetrics _is_ set, Windows Chrome & Firefox will split the typoLineGap and use half above and half below each line.
 
 - [ ] re-test MS Word clipping at typo values. [According to GlyphsApp docs, this should only happen in pre-2006 Office](https://glyphsapp.com/learn/vertical-metrics#:~:text=legacy%20Office%20software%20(i.e.%2C%20pre%2D2006)%20may%20apply%20clipping%20at%20the%20typo%20values%20rather%20than%20at%20the%20win%20values.)... but I am pretty sure it happens in my current version of MS Word for Windows 11
 
