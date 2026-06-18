@@ -17,12 +17,12 @@ Such a strategy should ideally...
 
 The repo will also seek to provide documentation behind new checks contributed to [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/).
 
-This will be based mostly on Latin script and other scripts that are primarily set horizontally, but the documented behavior of metrics can likely help inform any OpenType font, for almost any script.
+This testing will be based on Latin script and the information should apply to other scripts that are primarily set horizontally. For writing systems like Chinese, Japanese, and Korean, this information is incomplete.
 
 ## Recommended vertical metrics
 
 > [!WARNING]  
-> This recommendation is an evolving hypothesis, based on slightly scattered testing.
+> This recommendation is an evolving hypothesis, based on incomplete testing.
 
 Apply to all styles within a family:
 
@@ -44,11 +44,11 @@ typoLineGap    = absolute value of hheaDescender # positive value
 useTypoMetrics = False
 
 # Sets default line heights and clipping heights in MS Word, etc
-winAscent      = yMax in family # or hheaAscender, if this is greater than yMax
-winDescent     = absolute value of yMin in family # positive value # or absolute value hheaDescender, if this is greater than yMin
+winAscent      = hheaAscender # or set to yMax if greater than hheaAscender and avoiding any clipping is more important than cross-OS browser height similarity
+winDescent     = hheaDescender # positive value # or absolute value yMin if this is greater than hheaDescender and avoiding any clipping is more important than cross-OS browser height similarity
 ```
 
-If the above terms are unfamiliar to you, read on!
+If the above terms are unfamiliar to you, or if you want to understand why the above recommendations are made, read on!
 
 ## What are vertical metrics?
 
@@ -58,11 +58,13 @@ The metrics discussed here are a little more technical, and used to determine th
 >  The “ascender” and “descender” values discussed here are specific to the overall line height of fonts. They are *not* the same as the basic “ascender” and “descender” values set in most font editors. Those basic values are mostly to set up helpful design guidelines for drawing letters, though they are sometimes used to determine actual vertical metrics values. Usually, the vertical metrics discussed here are set in custom parameters or other slightly deeper font info settings.
 > See [Setting vertical metrics in font editors](#setting-vertical-metrics-in-font-editors), below, for more details.
 
-“Vertical metrics” are values recorded in OpenType fonts which text-setting software use to determine:
+“Vertical metrics” are values recorded in OpenType fonts, and are usually used by text-setting software use to determine:
 
-1. The offset applied to the first line of text within its space.
-2. (Often) the default distance between lines of text.
-3. (Sometimes) the offset applied between the last line of text and the bottom of its space.
+1. The default offset applied to the first line of text within its space.
+2. The default distance between lines of text.
+3. The default offset applied between the last line of text and the bottom of its space.
+
+Most text-setting software gives the ability to override these defaults, to varying degrees. For example, setting the `line-height` CSS property in browsers will override the default line-height that was determined by the vertical metrics – but the relative height of letters within their space (i.e. "vertical centering") is still affected by vertical metrics.
 
 There are three systems for recording these values: `typo`, `hhea`, and `win` values. The specific values this repo focusses on are the following:
 
@@ -105,7 +107,7 @@ For centered UI text (in buttons, etc) on the web, it is important for the full 
 Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, the system gives the font a significantly larger line height.
 
 - [ ] Test: what happens in other web browsers?
-- [ ] Test: is Chrome on Windows the same as Chrome on Mac, or not?
+- [x] Test: is Chrome on Windows the same as Chrome on Mac, or not?
 - [ ] Test: what happens in Chrome on Android?
 - [ ] Test (if possible): what about Android apps?
 
@@ -123,6 +125,10 @@ Most importantly, the `typoAscender` determines how a given font aligns to the t
 
 Generally, these set the top and bottom of each line in MS Word. This also sets where clipping occurs in glyphs.
 
+If useTypeMetrics is not true, win metrics also set heights in Chrome and Firefox on Windows.
+
+If these exceed hhea metrics, and useTypeMetrics is not true, win metrics are used by Chrome on Windows, whereas hhea metrics are used by Chrome on Mac (Tested in Chrome 70 on Windows 11 and Mac Tahoe).
+
 - [ ] Test: what happens in other Windows apps?
 
 ### When `useTypoMetrics` is True
@@ -133,6 +139,7 @@ However, this causes a few issues:
 1. Mac apps now check if the typoAscender exceeds the /Agrave height, and apply tall metrics if not.
 2. MS Word will follow the typo metrics, including for its clipping boundaries – regardless of what win metrics are set.
 3. Because of issues 1 and 2, typo metrics *have to* be set well above the cap height, which can be unintuitive for InDesign users.
+4. Chrome on Mac still follows hhea, while Chrome on Windows follows typo. So, browsers can have mismatches between platforms.
 
 - [ ] re-test MS Word clipping at typo values. [According to GlyphsApp docs, this should only happen in pre-2006 Office](https://glyphsapp.com/learn/vertical-metrics#:~:text=legacy%20Office%20software%20(i.e.%2C%20pre%2D2006)%20may%20apply%20clipping%20at%20the%20typo%20values%20rather%20than%20at%20the%20win%20values.)... but I am pretty sure it happens in my current version of MS Word for Windows 11
 
