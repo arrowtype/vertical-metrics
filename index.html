@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vertical Metrics Test</title>
+    <style>
+      @font-face {
+        font-family: "VMtest-GF";
+        src: url(fonts/VmTest2026GF-Regular.ttf);
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "VMtest-Target1400";
+        src: url(fonts/VmTest2026Target1400-Regular.ttf);
+        font-weight: 400;
+      }
+      html {
+        font-family: "VMtest-GF", sans-serif;
+      }
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .tests {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px; /* Optional spacing between items */
+      }
+      .test {
+        font-size: 3rem;
+      }
+      .test p {
+        margin: 0;
+      }
+      .gf {
+        font-family: "VMtest-GF";
+        }
+        .target1400 {
+          font-family: "VMtest-Target1400";
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vertical Metrics Test</h1>
+    <p>
+      Tests for
+      <a href="https://github.com/arrowtype/vertical-metrics"
+        >github.com/arrowtype/vertical-metrics</a
+      >
+    </p>
+    <div class="tests">
+        <div class="test gf">
+            <h2>GF</h2>
+            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+        </div>
+        <!-- TODO: make a test for each font -->
+        <div class="test target1400">
+            <h2>Target 1400</h2>
+            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+        </div>
+        <div class="test target1400">
+            <h2>Target 1400</h2>
+            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+        </div>
+        <div class="test target1400">
+            <h2>Target 1400</h2>
+            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+        </div>
+        <div class="test target1400">
+            <h2>Target 1400</h2>
+            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+        </div>
+        <div class="test target1400">
+            <h2>Target 1400</h2>
+            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+        </div>
+        <div class="test target1400">
+            <h2>Target 1400</h2>
+            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+        </div>
+    </div>
+  </body>
+</html>

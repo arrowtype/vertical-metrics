@@ -22,7 +22,7 @@ This will be based mostly on Latin script and other scripts that are primarily s
 ## Recommended vertical metrics
 
 > [!WARNING]  
-> This recommendation is an evolving hypothesis, based on slightly scattered testing. A key goal of this repo is to test and document vertical metrics effects methodically, to determine where and how effective various approaches are.
+> This recommendation is an evolving hypothesis, based on slightly scattered testing.
 
 Apply to all styles within a family:
 
@@ -44,8 +44,8 @@ typoLineGap    = absolute value of hheaDescender # positive value
 useTypoMetrics = False
 
 # Sets default line heights and clipping heights in MS Word, etc
-winAscent      = yMax in family
-winDescent     = absolute value of yMin in family # positive value
+winAscent      = yMax in family # or hheaAscender, if this is greater than yMax
+winDescent     = absolute value of yMin in family # positive value # or absolute value hheaDescender, if this is greater than yMin
 ```
 
 If the above terms are unfamiliar to you, read on!
@@ -66,26 +66,38 @@ The metrics discussed here are a little more technical, and used to determine th
 
 There are three systems for recording these values: `typo`, `hhea`, and `win` values. The specific values this repo focusses on are the following:
 
-- typoAscender
-- typoDescender
-- typoLineGap
-- hheaAscender
-- hheaDescender
-- hheaLineGap
-- winAscent
-- winDescent
-- useTypoMetrics (Bit 7 of OS/2 fsSelection)
+- **hheaAscender** – the `ascender` value of the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
+- **hheaDescender** – the `descender` value of the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
+- **hheaLineGap** – the `lineGap` value of the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
+- **typoAscender** – the [`sTypoAscender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender) value of the OS/2 table
+- **typoDescender** – the [`sTypoDescender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypodescender) value of the OS/2 table
+- **typoLineGap** – the [`sTypoLineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypolinegap) value of the OS/2 table
+- **winAscent** – the [`usWinAscent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswinascent) value of the OS/2 table
+- **winDescent** – the [`usWinDescent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswindescent) value of the OS/2 table
+- **useTypoMetrics** – Bit 7 of the [`fsSelection`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#fsselection) value of the OS/2 table. (fsSelection is a uint16 value, which are numbered 15 to 0, so Bit 7 is in the _eigth_ column when counted from the right: `00000000 1️⃣0000000`.)
 
-These values have slightly different terms between various font editors and the actual OpenType specification, but they are all fairly similar to the above.
+The exact names for the above values have slightly different labels between various font editors and the actual OpenType specification, but they are all fairly similar to the above.
 
 ## What does each of these metrics *really do?*
 
 Based on testing, how can we describe the effects of each set of metrics?
 
+In the OpenType spec for the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea), it says: 
+
+> The ascender, descender and linegap values in [the hhea] table are Apple specific; see [Apple's specification](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6hhea.html) for details regarding Apple platforms. The sTypoAscender, sTypoDescender and sTypoLineGap fields in the OS/2 table are used on the Windows platform, and are recommended for new text-layout implementations.”
+
+The Apple `hhea` documentation is not much more specific:
+
+- ascent:	Distance from baseline of highest ascender
+- descent: Distance from baseline of lowest descender
+- lineGap: typographic line gap
+
+So, let’s go deeper and see what values actually affect which apps, and how.
+
 ### `hhea` metrics
 
 Generally, these set the top and bottom of lines in:
-- Chrome
+- Chrome on Mac
 - macOS apps like TextEdit, which use CoreText
 
 For centered UI text (in buttons, etc) on the web, it is important for the full cap-height area to be centered between `hheaAscender` and `hheaDescender`.
@@ -94,6 +106,8 @@ Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, 
 
 - [ ] Test: what happens in other web browsers?
 - [ ] Test: is Chrome on Windows the same as Chrome on Mac, or not?
+- [ ] Test: what happens in Chrome on Android?
+- [ ] Test (if possible): what about Android apps?
 
 ### `typo` metrics
 
@@ -102,6 +116,8 @@ Generally, these set the top and bottom of lines of text in Adobe InDesign.
 Most importantly, the `typoAscender` determines how a given font aligns to the top of text frames, by default.
 
 - [ ] Test: what happens in other Adobe apps?
+- [ ] Test: is this also true for Adobe apps on Windows? (It must be... right?)
+- [ ] Test: what happens in Affinity apps, such as Affinity Designer and Affinity Publisher?
 
 ### `win` metrics
 
