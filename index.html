@@ -11,8 +11,43 @@
         font-weight: 400;
       }
       @font-face {
+        font-family: "VMtest-GFMin";
+        src: url(fonts/VmTest2026GFMin-Regular.ttf);
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "VMtest-GFMinAlt";
+        src: url(fonts/VmTest2026GFMinAlt-Regular.ttf);
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "VMtest-GFMinAltAgrave";
+        src: url(fonts/VmTest2026GFMinAltAgrave-Regular.ttf);
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "VMtest-GFMinAltAgrTallWin";
+        src: url(fonts/VmTest26GFMinAltAgrTallWin-Regular.ttf);
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "VMtest-GlyphsDflt";
+        src: url(fonts/VmTest2026GlyphsDflt-Regular.ttf);
+        font-weight: 400;
+      }
+      @font-face {
         font-family: "VMtest-Target1400";
         src: url(fonts/VmTest2026Target1400-Regular.ttf);
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "VMtest-Target1400B";
+        src: url(fonts/VmTest2026Target1400b-Regular.ttf);
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "VMtest-Tgt1400useTypo";
+        src: url(fonts/VmTest2026Tgt1400useTypo-Regular.ttf);
         font-weight: 400;
       }
       html {
@@ -26,19 +61,45 @@
       .tests {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 16px; /* Optional spacing between items */
+        gap: 16px;
       }
       .test {
         font-size: 3rem;
       }
+      .test h2 {
+        min-height: 2.5em;
+        margin-bottom: 16px;
+      }
       .test p {
         margin: 0;
+        background-color: #f0f0f0;
       }
       .gf {
         font-family: "VMtest-GF";
-        }
-        .target1400 {
-          font-family: "VMtest-Target1400";
+      }
+      .gfmin {
+        font-family: "VMtest-GFMin";
+      }
+      .gfminalt {
+        font-family: "VMtest-GFMinAlt";
+      }
+      .gfminaltagrave {
+        font-family: "VMtest-GFMinAltAgrave";
+      }
+      .gfminaltagrtallwin {
+        font-family: "VMtest-GFMinAltAgrTallWin";
+      }
+      .glyphsdflt {
+        font-family: "VMtest-GlyphsDflt";
+      }
+      .target1400 {
+        font-family: "VMtest-Target1400";
+      }
+      .target1400b {
+        font-family: "VMtest-Target1400B";
+      }
+      .tgt1400usetypo {
+        font-family: "VMtest-Tgt1400useTypo";
       }
     </style>
   </head>
@@ -51,35 +112,42 @@
       >
     </p>
     <div class="tests">
-        <div class="test gf">
-            <h2>GF</h2>
-            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
-        </div>
-        <!-- TODO: make a test for each font -->
-        <div class="test target1400">
-            <h2>Target 1400</h2>
-            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
-        </div>
-        <div class="test target1400">
-            <h2>Target 1400</h2>
-            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
-        </div>
-        <div class="test target1400">
-            <h2>Target 1400</h2>
-            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
-        </div>
-        <div class="test target1400">
-            <h2>Target 1400</h2>
-            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
-        </div>
-        <div class="test target1400">
-            <h2>Target 1400</h2>
-            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
-        </div>
-        <div class="test target1400">
-            <h2>Target 1400</h2>
-            <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
-        </div>
+      <div class="test gf">
+        <h2>GF</h2>
+        <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+      </div>
+      <div class="test gfmin">
+        <h2>GF Min</h2>
+        <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+      </div>
+      <div class="test gfminalt">
+        <h2>GF Min Alt</h2>
+        <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+      </div>
+      <div class="test gfminaltagrave">
+        <h2>GF Min Alt - hhea under Agrave</h2>
+        <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+      </div>
+      <div class="test gfminaltagrtallwin">
+        <h2>GF Min Alt - hhea under Agrave - Tall Win Metrics</h2>
+        <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+      </div>
+      <div class="test glyphsdflt">
+        <h2>Glyphs Default</h2>
+        <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+      </div>
+      <div class="test target1400">
+        <h2>Target 1400</h2>
+        <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+      </div>
+      <div class="test target1400b">
+        <h2>Target 1400 B</h2>
+        <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+      </div>
+      <div class="test tgt1400usetypo">
+        <h2>Target 1400 B useTypo</h2>
+        <p>HẮÀbỵ? !</br>HẮÀbỵ?!</br>HẮÀbỵ? !</p>
+      </div>
     </div>
   </body>
 </html>
