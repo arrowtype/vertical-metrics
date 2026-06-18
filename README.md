@@ -98,9 +98,10 @@ So, let’s go deeper and see what values actually affect which apps, and how.
 
 ### `hhea` metrics
 
-Generally, these set the top and bottom of lines in:
-- Chrome on Mac
+Generally, these set the top and bottom of lines of text in:
 - macOS apps like TextEdit, which use CoreText
+- Chrome on Mac (and FireFox and Safari on Mac)
+- Chrome on Android, if useTypoMetrics is False
 
 For centered UI text (in buttons, etc) on the web, it is important for the full cap-height area to be centered between `hheaAscender` and `hheaDescender`.
 
@@ -115,7 +116,7 @@ Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, 
 
 Generally, these set the top and bottom of lines of text in Adobe InDesign.
 
-Most importantly, the `typoAscender` determines how a given font aligns to the top of text frames, by default.
+Most importantly, the `typoAscender` determines how a given font aligns to the top of text frames in InDesign, by default.
 
 - [ ] Test: what happens in other Adobe apps?
 - [ ] Test: is this also true for Adobe apps on Windows? (It must be... right?)
@@ -125,9 +126,9 @@ Most importantly, the `typoAscender` determines how a given font aligns to the t
 
 Generally, these set the top and bottom of each line in MS Word. This also sets where clipping occurs in glyphs.
 
-If useTypeMetrics is not true, win metrics also set heights in Chrome and Firefox on Windows.
+If useTypeMetrics is not true, win metrics also set line heights in Chrome and Firefox on Windows.
 
-If these exceed hhea metrics, and useTypeMetrics is not true, win metrics are used by Chrome on Windows, whereas hhea metrics are used by Chrome on Mac (Tested in Chrome 70 on Windows 11 and Mac Tahoe).
+If these differ from hhea metrics and useTypeMetrics is not true, win metrics are used by Chrome and Firefox on Windows.
 
 - [ ] Test: what happens in other Windows apps?
 
