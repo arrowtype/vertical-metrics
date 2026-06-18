@@ -44,8 +44,8 @@ typoLineGap    = absolute value of hheaDescender # positive value
 useTypoMetrics = False
 
 # Sets default line heights and clipping heights in MS Word, etc
-winAscent      = hheaAscender # or set to yMax if greater than hheaAscender and avoiding any clipping is more important than cross-OS browser height similarity
-winDescent     = hheaDescender # positive value # or absolute value yMin if this is greater than hheaDescender and avoiding any clipping is more important than cross-OS browser height similarity
+winAscent      = hheaAscender # or set to yMax if it is greater than hheaAscender and avoiding clipping is more important than cross-platform similarity
+winDescent     = absolute value of hheaDescender # positive value # or absolute value of yMin if this is greater than hheaDescender and avoiding clipping is more important than cross-platform similarity
 ```
 
 If the above terms are unfamiliar to you, or if you want to understand why the above recommendations are made, read on!
