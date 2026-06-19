@@ -452,7 +452,7 @@ Finally, run the build:
 ## Credits
 
 Many thanks to:
-- [The Type Founders](https://typographer.com/), for supporting much of the time that has been put into this testing.
+- [The Type Founders](https://thetypefounders.com/), for supporting this testing and research, and encouraging it to be openly published.
 - [Google Fonts](https://fonts.google.com/), for informing this approach and documentation, as well as for their support of foundational tools used here.
 - (More credits to be added!)
 - ArrowType (Stephen Nixon) for the primary design, writing, and testing done for this repo
