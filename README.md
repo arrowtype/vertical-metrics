@@ -101,11 +101,11 @@ So, let’s go deeper and see what values actually affect which apps, and how.
 Generally, these set the top and bottom of lines of text in:
 - macOS apps like TextEdit, which use CoreText
 - Chrome on Mac (and FireFox and Safari on Mac)
-- Chrome on Android, if useTypoMetrics is False
+- Chrome on Android, if _useTypoMetrics_ is False
 
-For centered UI text (in buttons, etc) on the web, it is important for the full cap-height area to be centered between `hheaAscender` and `hheaDescender`.
+For centered UI text (in buttons, etc) on the web, it is important for the full cap-height area to be centered between _hheaAscender_ and _hheaDescender_.
 
-Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, the system gives the font a significantly larger line height.
+Mac apps have a quirk: if the _hheaAscender_ doesn’t exceed the /Agrave height, the system gives the font a significantly larger line height.
 
 - [ ] Test: what happens in other web browsers?
 - [x] Test: is Chrome on Windows the same as Chrome on Mac, or not?
@@ -114,9 +114,15 @@ Mac apps have a quirk: if the hheaAscender doesn’t exceed the /Agrave height, 
 
 ### `typo` metrics
 
-Generally, these set the top and bottom of lines of text in Adobe InDesign.
+Most significantly, these set the top of lines of text in Adobe InDesign.
 
-Most importantly, the `typoAscender` determines how a given font aligns to the top of text frames in InDesign, by default.
+In particular, the _typoAscender_ determines how a given font aligns to the top of text frames in InDesign, by default.
+
+InDesign sets all fonts to a default line height of 120% (of their UPM), regardless of the total sum of typoAscender, tyopDescender, and typoLineGap.
+
+The user has various ways around these defaults, but it is often most intuitive for the _typoAscender_ to be close to the cap height, or just above it.
+
+If useTypoMetrics is set to true, more apps follow typo metrics (more information below).
 
 - [ ] Test: what happens in other Adobe apps?
 - [ ] Test: is this also true for Adobe apps on Windows? (It must be... right?)
