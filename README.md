@@ -416,6 +416,19 @@ When `line-height` CSS *is* set, the line height is based on the font’s UPM.
 - [ ] Determine whether Firefox and Safari match Chrome
 
 
+## Affinity 
+
+(Tested on Mac, Version: Mid June 26 (4557).)
+
+Seems to align text with top set to the basic lowercase ascender, e.g. the top of /b. (Would need more testing to be certain of this.)
+
+Seems to set total line height based on hhea metrics, but may be using typo.
+
+- [ ] test case needed?: different hhea vs typo metrics, plus 'useTypoMetrics' (to answer which metrics Affinity follows)
+
+![Vertical metrics tests in Affinity](docs/screenshots/screenshot-mac-affinity-260620.png)
+
+
 ## App Quirks
 
 - InDesign
@@ -424,6 +437,8 @@ When `line-height` CSS *is* set, the line height is based on the font’s UPM.
 
 
 ## Setting vertical metrics in font editors
+
+- [ ] TODO: maybe :)
 
 - GlyphsApp
 - RoboFont
