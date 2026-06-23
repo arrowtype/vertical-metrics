@@ -670,7 +670,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 26 GFMinAlt Agr TallWin";
+value = "Vm Test 2026 GFMinAlt Agr TallWin";
 }
 );
 }
@@ -737,7 +737,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Vm Test 26 Diff Metrics useTypo";
+value = "Vm Test 2026 Diff Metrics useTypo";
 }
 );
 }
