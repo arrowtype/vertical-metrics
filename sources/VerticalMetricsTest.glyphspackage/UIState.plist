@@ -2,11 +2,13 @@
 displayStrings = (
 "̊",
 "/question.gf  /question.gfmin  /question.gfminalt  ",
-"",
 "/question.t1400",
 "/question.t1400B/question.t1400B.001   /question.glyphsapp 
 
 /question.t1400/question.t1400useTypo  /question.gfmin  /question.gfminalt  /question.gfminalt_agrave !/question.gfminalt_agrave_tallwin 
+
+
+/question.diff_metrics_useTypo 
 
 "
 );
