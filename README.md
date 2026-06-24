@@ -134,7 +134,7 @@ Generally, these set the top and bottom of each line in MS Word. This also sets 
 
 If *useTypeMetrics* is not true, win metrics also set line heights in Chrome and Firefox on Windows.
 
-If these differ from hhea metrics and *useTypeMetrics* is not true, win metrics are used by Chrome and Firefox on Windows.
+If typo metrics differ from hhea metrics and *useTypeMetrics* is not true, win metrics are used by Chrome and Firefox on Windows.
 
 - [ ] Test: what happens in other Windows apps?
 
