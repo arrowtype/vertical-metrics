@@ -103,7 +103,7 @@ Generally, these set the top and bottom of lines of text in:
 - Chrome on Mac (and FireFox and Safari on Mac)
 - Chrome on Android, if _useTypoMetrics_ is False
 
-For centered UI text (in buttons, etc) on the web, it is important for the full cap-height area to be centered between _hheaAscender_ and _hheaDescender_.
+For centered UI text (in buttons, etc) on the web, it is important for the full cap-height area to be centered between _hheaAscender_ and _hheaDescender_. (Or the cap-height can be just a little higher within line metrics, if you want to center the x-height a bit more.)
 
 Mac apps have a quirk: if the _hheaAscender_ doesn’t exceed the /Agrave height, the system gives the font a significantly larger line height.
 
