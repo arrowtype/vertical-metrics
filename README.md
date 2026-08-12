@@ -489,8 +489,8 @@ If you spot any typos or simple mistakes, please don’t hesitate to [make a Pul
 Many thanks to:
 - [The Type Founders](https://thetypefounders.com/), for supporting this testing and research, and encouraging it to be openly published.
 - [Google Fonts](https://fonts.google.com/), for informing this approach and documentation, as well as for their support of foundational tools used here.
-- (More credits to be added!)
-- ArrowType (Stephen Nixon) for the primary design, writing, and testing done for this repo
+- José Solé of [Dogray Type Foundry](https://www.dograytype.com/), for pushing me to reconsider my prior assumptions about line metrics.
+- [ArrowType](https://www.arrowtype.com/) (Stephen Nixon) for the primary design, writing, and testing done for this repo.
 
 
 ## Background Resources
