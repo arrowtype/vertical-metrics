@@ -3,8 +3,14 @@
 A repo for testing and documenting strategies for vertical metrics in fonts.
 
 > [!WARNING]  
-> This repo is a work in (a very early state of) progress. 
+> This repo is a work in progress. 
 > It is currently a space for keeping notes and forming thoughts.
+
+## Video presentation
+
+This research was presented and explained at the 2026 TypeLab font conference. Here is a re-recorded of that presentation:
+
+[![Watch the video](https://img.youtube.com/vi/51SOQx8xdSg/maxresdefault.jpg)](https://www.youtube.com/watch?v=51SOQx8xdSg)
 
 ## Goals and Scope
 
