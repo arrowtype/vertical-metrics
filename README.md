@@ -113,6 +113,9 @@ For centered UI text (in buttons, etc) on the web, it is important for the full 
 
 Mac apps have a quirk: if the _hheaAscender_ doesn’t exceed the /Agrave height, the system gives the font a significantly larger line height.
 
+> [!WARNING]  
+> _hheaLineGap_ is ignored only in variable fonts on macOS. So, if you produce static + variable fonts with a positive _hheaLineGap_ value, the static fonts will have taller line heights than the equivalent variable fonts in apps like macOS Chrome, Safari, TextEdit, QuickView, and more. (Discovered 26/08/18 with CF Mielle; not currently included in repo screenshots.)
+
 - [ ] Test: what happens in other web browsers?
 - [x] Test: is Chrome on Windows the same as Chrome on Mac, or not?
 - [ ] Test: what happens in Chrome on Android?
