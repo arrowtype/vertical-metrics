@@ -30,6 +30,13 @@ This testing will be based on Latin script and the information should apply to o
 > [!WARNING]  
 > This recommendation is an evolving hypothesis, based on incomplete testing.
 
+> [!WARNING]  
+> For variable fonts, this strategy doesn’t align to the OpenType spec, which says:
+> > In variable fonts, default line metrics should always be set using the sTypoAscender, sTypoDescender and sTypoLineGap values, and the USE_TYPO_METRICS flag in the fsSelection field should be set. The ascender, descender and lineGap fields in the 'hhea' table should be set to the same values as sTypoAscender, sTypoDescender and sTypoLineGap. The usWinAscent and usWinDescent fields should be used to specify a recommended clipping rectangle.
+> > https://learn.microsoft.com/en-gb/typography/opentype/spec/os2#os2-table-and-opentype-font-variations
+> 
+> Further research and testing is needed, before advice can be provided relative to the above. It is probably safest to follow the OpenType Spec, even if it means fonts may have non-ideal default line heights in the near-term.
+
 Apply to all styles within a family:
 
 ```py
@@ -37,7 +44,7 @@ Apply to all styles within a family:
 Line Height = UPM * 1.4 # your preferred ratio, probably at least 1.2 or greater
 
 # hheaAscender must exceed /Agrave, or you should increase your target Line Height
-hheaAscender   = Cap Height + ((Line Height - Cap Height) / 2)
+hheaAscender   = (Cap Height + Line Height) ÷ 2
 hheaDescender  = Cap Height - hheaAscender
 hheaLineGap    = 0
 
