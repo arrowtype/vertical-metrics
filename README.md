@@ -8,7 +8,7 @@ A repo for testing and documenting strategies for vertical metrics in fonts.
 
 ## Video presentation
 
-This research was presented and explained at the 2026 TypeLab font conference. Here is a re-recorded of that presentation:
+This research was presented and explained at the 2026 TypeLab font conference. Here is a re-recording of that presentation:
 
 [![Watch the video](https://img.youtube.com/vi/51SOQx8xdSg/maxresdefault.jpg)](https://www.youtube.com/watch?v=51SOQx8xdSg)
 
