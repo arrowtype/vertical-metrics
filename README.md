@@ -188,7 +188,7 @@ HẮÀbỵ? !
 ### InDesign
 
 - Top alignment follows `typoAscender` regardless of `useTypoMetrics`.
-- Default auto leading: 120% UPM (Justification → Auto Leading).
+- Default auto leading: 120% UPM (Changeable via **Justification → Auto Leading**).
 - Cap-height (or basic ascender) `typoAscender` with `useTypoMetrics` False reads well; GF pushes an unintuitive gap at the top of frames.
 - Overrides: Text Frame Options → Baseline Options → First Baseline.
 
@@ -206,16 +206,21 @@ Vertical metrics barely affect alignment. By default, top offset follows lowerca
 
 ### macOS TextEdit (CoreText)
 
-- Default Line Space ≈ 1.2 × (`hheaAscender` − `hheaDescender`); always based on `hhea`, even if `useTypoMetrics` is True.
+- Line height is `hheaDescender` to `hheaAscender`, when line spacing is set to "1.0" (the default). Higher values multiply the `hhea` total.
+- Always based on `hhea`, even if `useTypoMetrics` is True.
 - GF approaches land ~155% UPM vs ~140% for target-line-height approaches.
-- Glyphs above `hheaAscender` clip on the first line.
+- Glyphs taller than `hheaAscender` will clip on the first line.
 
-At Line Space 1.0 / 1.2:
+At Line Space 1.0:
+
+![Vertical metrics tests in TextEdit, at Line Spacing 1.0](docs/screenshots/mac-textedit-vmtest-linespace_1.0-screenshot-260315.png)
+
+At Line Space 1.2:
 
 ![Vertical metrics tests in TextEdit](docs/screenshots/mac-textedit-vmtest-linespace_1.2_default-screenshot-260315.png)
 
 <details>
-<summary>useTypoMetrics True still follows hhea</summary>
+<summary>TextEdit still follows `hhea` when `useTypoMetrics` is True.</summary>
 
 ![TextEdit testing useTypoMetrics](docs/screenshots/mac-textedit-vmtest-linespace_1.0-useTypoMetrics-screenshot-260315.png)
 
