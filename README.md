@@ -33,6 +33,8 @@ winAscent      = hheaAscender  # or yMax if greater and avoiding clipping matter
 winDescent     = abs(hheaDescender)  # or abs(yMin) under the same tradeoff
 ```
 
+This is the **Target Line Height B** strategy in testing below. Prefer matching `win` to `hhea` for consistency; use yMax/yMin only when clipping is unacceptable.
+
 > [!NOTE]
 > If, in InDesign, you want to align text based on the lowercase ascender, rather than the cap height, you can use the above recomendation, but adjust your `typo` values. This will better match results in Illustrator and Affinity, where text is aligned based on the lowercase ascender height.
 
@@ -42,7 +44,12 @@ typoDescender  = hheaDescender
 typoLineGap    = abs(hheaDescender - (Lowercase Ascender - Cap Height)) # Makes up for difference in typoAscender; this is a positive value
 ```
 
-This is the **Target Line Height B** strategy in testing below. Prefer matching `win` to `hhea` for consistency; use yMax/yMin only when clipping is unacceptable.
+> [!WARNING]  
+> For variable fonts, this strategy doesn’t align to the OpenType spec, which says:
+> > In variable fonts, default line metrics should always be set using the sTypoAscender, sTypoDescender and sTypoLineGap values, and the USE_TYPO_METRICS flag in the fsSelection field should be set. The ascender, descender and lineGap fields in the 'hhea' table should be set to the same values as sTypoAscender, sTypoDescender and sTypoLineGap. The usWinAscent and usWinDescent fields should be used to specify a recommended clipping rectangle.
+> > https://learn.microsoft.com/en-gb/typography/opentype/spec/os2#os2-table-and-opentype-font-variations
+> 
+> It is probably safest in the long run to follow the OpenType Spec. However, it is unlikely apps will change their behavior for interpreting line metrics, so it may be worth it to design based on real-world observations. This is a judgement call for you to make. That said, testing here was done primarily with static fonts, and variable fonts may yield different results.
 
 ## Video presentation
 
