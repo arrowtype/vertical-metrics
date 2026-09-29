@@ -1,47 +1,19 @@
 # Vertical Metrics
 
-A repo for testing and documenting strategies for vertical metrics in fonts.
+Notes and tests for vertical metrics strategies in fonts—especially how OpenType `hhea`, `typo`, and `win` values behave across important apps.
 
-> [!WARNING]  
-> This repo is a work in progress. 
-> It is currently a space for keeping notes and forming thoughts.
+> [!WARNING]
+> Early work in progress: an evolving hypothesis based on incomplete testing. Focused on Latin and other primarily horizontal scripts; incomplete for CJK.
 
-## Video presentation
-
-This research was presented and explained at the 2026 TypeLab font conference. Here is a re-recording of that presentation:
-
-[![Watch the video](https://img.youtube.com/vi/51SOQx8xdSg/maxresdefault.jpg)](https://www.youtube.com/watch?v=51SOQx8xdSg)
-
-## Goals and Scope
-
-This repo seeks to test various vertical metrics parameters, in several important/representative apps, to determine a strategy for vertical metrics.
-
-Such a strategy should ideally...
-- Be as consistent as reasonable possible, between different platforms and apps
-- Be intuitive to use and to read, for each major platform and app
-- Be simple enough to describe and adapt to achieve type design goals
-
-The repo will also seek to provide documentation behind new checks contributed to [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/).
-
-This testing will be based on Latin script and the information should apply to other scripts that are primarily set horizontally. For writing systems like Chinese, Japanese, and Korean, this information is incomplete.
+**Thesis:** For Latin UI and print, set a target line height with cap-centered `hhea`, InDesign-friendly `typo` + gap, `useTypoMetrics` off, and `win` matched to `hhea` (or to yMax/yMin if you must avoid clipping). That splits roles across apps better than the Google Fonts “everything follows typo” model.
 
 ## Recommended vertical metrics
 
-> [!WARNING]  
-> This recommendation is an evolving hypothesis, based on incomplete testing.
-
-> [!WARNING]  
-> For variable fonts, this strategy doesn’t align to the OpenType spec, which says:
-> > In variable fonts, default line metrics should always be set using the sTypoAscender, sTypoDescender and sTypoLineGap values, and the USE_TYPO_METRICS flag in the fsSelection field should be set. The ascender, descender and lineGap fields in the 'hhea' table should be set to the same values as sTypoAscender, sTypoDescender and sTypoLineGap. The usWinAscent and usWinDescent fields should be used to specify a recommended clipping rectangle.
-> > https://learn.microsoft.com/en-gb/typography/opentype/spec/os2#os2-table-and-opentype-font-variations
-> 
-> Further research and testing is needed, before advice can be provided relative to the above. It is probably safest to follow the OpenType Spec, even if it means fonts may have non-ideal default line heights in the near-term.
-
-Apply to all styles within a family:
+Apply the same values to all styles in a family:
 
 ```py
 # Set up your target line height
-Line Height = UPM * 1.4 # your preferred ratio, probably at least 1.2 or greater
+Line Height = UPM * 1.4  # preferred ratio; usually at least 1.2
 
 # hheaAscender must exceed /Agrave, or you should increase your target Line Height
 hheaAscender   = (Cap Height + Line Height) ÷ 2
@@ -51,265 +23,157 @@ hheaLineGap    = 0
 # typoAscender controls framing in InDesign
 typoAscender   = Cap Height
 typoDescender  = hheaDescender
-typoLineGap    = absolute value of hheaDescender # positive value
+typoLineGap    = abs(hheaDescender)  # positive
 
-# important, or macOS app line height will be wrong in e.g. TextEdit
+# Required so macOS apps (e.g. TextEdit) use hhea correctly
 useTypoMetrics = False
 
-# Sets default line heights and clipping heights in MS Word, etc
-winAscent      = hheaAscender # or set to yMax if it is greater than hheaAscender and avoiding clipping is more important than cross-platform similarity
-winDescent     = absolute value of hheaDescender # positive value # or absolute value of yMin if this is greater than hheaDescender and avoiding clipping is more important than cross-platform similarity
+# Default line heights and clipping in MS Word, etc.
+winAscent      = hheaAscender  # or yMax if greater and avoiding clipping matters more than cross-platform match
+winDescent     = abs(hheaDescender)  # or abs(yMin) under the same tradeoff
 ```
 
-If the above terms are unfamiliar to you, or if you want to understand why the above recommendations are made, read on!
+This is the **Target Line Height B** strategy below. Prefer matching `win` to `hhea` for consistency; use yMax/yMin only when clipping is unacceptable.
 
 ## What are vertical metrics?
 
-The metrics discussed here are a little more technical, and used to determine the default positioning of lines of text within apps.
+These OpenType values control how apps place lines of text by default:
 
-> [!NOTE]  
->  The “ascender” and “descender” values discussed here are specific to the overall line height of fonts. They are *not* the same as the basic “ascender” and “descender” values set in most font editors. Those basic values are mostly to set up helpful design guidelines for drawing letters, though they are sometimes used to determine actual vertical metrics values. Usually, the vertical metrics discussed here are set in custom parameters or other slightly deeper font info settings.
-> See [Setting vertical metrics in font editors](#setting-vertical-metrics-in-font-editors), below, for more details.
+1. Offset of the first line from the top of its space
+2. Distance between lines
+3. Offset from the last line to the bottom of its space
 
-“Vertical metrics” are values recorded in OpenType fonts, and are usually used by text-setting software use to determine:
+Users can often override defaults (e.g. CSS `line-height`), but vertical centering within the line box still depends on these metrics.
 
-1. The default offset applied to the first line of text within its space.
-2. The default distance between lines of text.
-3. The default offset applied between the last line of text and the bottom of its space.
+They are **not** the basic “ascender” / “descender” guidelines in most font editors (those are mainly drawing guides). Editor-specific how-tos: [Setting vertical metrics in font editors](#setting-vertical-metrics-in-font-editors).
 
-Most text-setting software gives the ability to override these defaults, to varying degrees. For example, setting the `line-height` CSS property in browsers will override the default line-height that was determined by the vertical metrics – but the relative height of letters within their space (i.e. "vertical centering") is still affected by vertical metrics.
+| Name               | OpenType field                                                                                              |
+| ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| **hheaAscender**   | [`ascender`](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea) (hhea)                        |
+| **hheaDescender**  | [`descender`](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea) (hhea)                       |
+| **hheaLineGap**    | [`lineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea) (hhea)                         |
+| **typoAscender**   | [`sTypoAscender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender) (OS/2)      |
+| **typoDescender**  | [`sTypoDescender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypodescender) (OS/2)    |
+| **typoLineGap**    | [`sTypoLineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypolinegap) (OS/2)        |
+| **winAscent**      | [`usWinAscent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswinascent) (OS/2)          |
+| **winDescent**     | [`usWinDescent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswindescent) (OS/2)        |
+| **useTypoMetrics** | Bit 7 of [`fsSelection`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#fsselection) (OS/2) |
 
-There are three systems for recording these values: `typo`, `hhea`, and `win` values. The specific values this repo focusses on are the following:
+Editor labels vary slightly; the roles above are the same.
 
-- **hheaAscender** – the `ascender` value of the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
-- **hheaDescender** – the `descender` value of the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
-- **hheaLineGap** – the `lineGap` value of the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
-- **typoAscender** – the [`sTypoAscender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender) value of the OS/2 table
-- **typoDescender** – the [`sTypoDescender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypodescender) value of the OS/2 table
-- **typoLineGap** – the [`sTypoLineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypolinegap) value of the OS/2 table
-- **winAscent** – the [`usWinAscent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswinascent) value of the OS/2 table
-- **winDescent** – the [`usWinDescent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswindescent) value of the OS/2 table
-- **useTypoMetrics** – Bit 7 of the [`fsSelection`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#fsselection) value of the OS/2 table. (fsSelection is a uint16 value, which are numbered 15 to 0, so Bit 7 is in the _eigth_ column when counted from the right: `00000000 1️⃣0000000`.)
+The OpenType spec says `hhea` is Apple-specific and that `sTypo*` is preferred for new layout—and Apple’s docs stay vague (“highest ascender”, “lowest descender”, “typographic line gap”). Real behavior is app-specific; see below.
 
-The exact names for the above values have slightly different labels between various font editors and the actual OpenType specification, but they are all fairly similar to the above.
+## Behavior by app
 
-## What does each of these metrics *really do?*
+| App                       | Uses for line layout                                                       | Notable quirks                                                                                                                                                                              |
+| ------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| macOS TextEdit (CoreText) | `hhea` (even if `useTypoMetrics`)                                          | Line space ≈ 1.2 × (`hheaAscender` − `hheaDescender`). If `hheaAscender` &lt; /Agrave, macOS ignores `hhea` and assigns ~150% UPM. Tall glyphs above `hheaAscender` clip on the first line. |
+| InDesign                  | `typoAscender` for top of frame                                            | Default auto leading is **120% of UPM**, ignoring typo sum. Cap-height (or near) `typoAscender` is most intuitive.                                                                          |
+| MS Word (Win)             | `win`, or `typo` if `useTypoMetrics`                                       | Default spacing is 1.08 + 8pt after; use **Single** to see metrics. With `useTypoMetrics`, clipping follows typo bounds.                                                                    |
+| Chrome / Firefox          | `hhea`, or `typo` if `useTypoMetrics` (Windows); Mac Chrome follows `hhea` | Only default line-height; CSS `line-height` uses UPM. Platform mismatch when `useTypoMetrics` is on.                                                                                        |
+| Affinity (Mac)            | `hhea` for default line height                                             | Top alignment ≈ lowercase ascender (/b).                                                                                                                                                    |
+| Illustrator               | Mostly ignores these metrics                                               | Area Type tops at lowercase ascenders; highlight height uses typo asc−desc (no gap). Default leading 120% UPM.                                                                              |
 
-Based on testing, how can we describe the effects of each set of metrics?
+### When `useTypoMetrics` is True
 
-In the OpenType spec for the [hhea table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea), it says: 
+Most apps follow typo metrics, but:
 
-> The ascender, descender and linegap values in [the hhea] table are Apple specific; see [Apple's specification](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6hhea.html) for details regarding Apple platforms. The sTypoAscender, sTypoDescender and sTypoLineGap fields in the OS/2 table are used on the Windows platform, and are recommended for new text-layout implementations.”
+1. Mac apps check whether **typo**Ascender exceeds /Agrave, and apply tall metrics if not.
+2. MS Word uses typo for layout **and** clipping, ignoring `win`.
+3. Because of (1) and (2), typo must sit well above cap height—awkward in InDesign.
+4. Chrome on Mac still follows `hhea`; Chrome/Firefox on Windows follow typo (and split `typoLineGap` half above / half below). Cross-platform mismatch.
 
-The Apple `hhea` documentation is not much more specific:
+> [!NOTE]
+> Glyphs docs say typo clipping in Office is legacy (pre-2006). Current MS Word on Windows 11 still appeared to clip at typo when `useTypoMetrics` is on—worth re-checking.
 
-- ascent:	Distance from baseline of highest ascender
-- descent: Distance from baseline of lowest descender
-- lineGap: typographic line gap
+### Implications for the recommendation
 
-So, let’s go deeper and see what values actually affect which apps, and how.
+- Cap-center between `hheaAscender` and `hheaDescender` for UI web text; keep `hheaAscender` above /Agrave.
+- Set `typoAscender` ≈ cap height for InDesign; use `typoLineGap` so typo + gap match the `hhea` line height.
+- Keep `useTypoMetrics` **False** so `hhea` and `win` can do their jobs without forcing typo tall for Word/Mac.
+- Match `win` to `hhea` when cross-app consistency matters; set `win` past yMax/yMin when any clipping is unacceptable.
 
-### `hhea` metrics
+Screenshots and per-app notes: [Test results](#test-results).
 
-Generally, these set the top and bottom of lines of text in:
-- macOS apps like TextEdit, which use CoreText
-- Chrome on Mac (and FireFox and Safari on Mac)
-- Chrome on Android, if _useTypoMetrics_ is False
+## Strategies compared
 
-For centered UI text (in buttons, etc) on the web, it is important for the full cap-height area to be centered between _hheaAscender_ and _hheaDescender_. (Or the cap-height can be just a little higher within line metrics, if you want to center the x-height a bit more.)
+All strategies set the same vertical metrics across styles in a family.
 
-Mac apps have a quirk: if the _hheaAscender_ doesn’t exceed the /Agrave height, the system gives the font a significantly larger line height.
+| Strategy                                                            | `useTypoMetrics` | `hhea` / typo relationship                                     | `win`             | Notes                                                     |
+| ------------------------------------------------------------------- | ---------------- | -------------------------------------------------------------- | ----------------- | --------------------------------------------------------- |
+| **Target Line Height B** (recommended)                              | False            | Target LH → `hhea`; typoAsc = cap; typoGap fills to `hhea`     | = `hhea`          | Best cross-app consistency; possible mild first-line clip |
+| Target Line Height                                                  | False            | Same as B                                                      | = yMax / \|yMin\| | Prefer when clipping must be avoided                      |
+| [Google Fonts](https://googlefonts.github.io/gf-guide/metrics.html) | True             | typo = hhea; typoAsc above /Abreveacute (min: /Agrave); gaps 0 | = yMax / \|yMin\| | Absolute sum ~20–30% over UPM                             |
+| Google Fonts Min                                                    | True             | Like GF; typo/hhea asc = /Agrave top                           | = yMax / \|yMin\| | Minimum GF suggestion                                     |
+| Google Fonts Min Alt                                                | True             | Like Min, but typo shaped like Target (asc ≈ cap, gap fills)   | = yMax / \|yMin\| | Hybrid                                                    |
+| GlyphsApp defaults                                                  | False            | typo ≈ editor asc/desc; hhea ≈ 1.2×UPM − desc                  | = `hhea`          | When custom params are unset                              |
+| Adobe Fonts                                                         | —                | —                                                              | —                 | Not tested yet (Glyphs calls a related approach “Legacy”) |
 
-> [!WARNING]  
-> _hheaLineGap_ is ignored only in variable fonts on macOS. So, if you produce static + variable fonts with a positive _hheaLineGap_ value, the static fonts will have taller line heights than the equivalent variable fonts in apps like macOS Chrome, Safari, TextEdit, QuickView, and more. (Discovered 26/08/18 with CF Mielle; not currently included in repo screenshots.)
-
-- [ ] Test: what happens in other web browsers?
-- [x] Test: is Chrome on Windows the same as Chrome on Mac, or not?
-- [ ] Test: what happens in Chrome on Android?
-- [ ] Test (if possible): what about Android apps?
-
-### `typo` metrics
-
-Most significantly, these set the top of lines of text in Adobe InDesign.
-
-In particular, the _typoAscender_ determines how a given font aligns to the top of text frames in InDesign, by default.
-
-InDesign sets all fonts to a default line height of 120% (of their UPM), regardless of the total sum of *typoAscender*, *tyopDescender*, and *typoLineGap*.
-
-The user has various ways around these defaults, but it is often most intuitive for the _typoAscender_ to be close to the cap height, or just above it.
-
-If useTypoMetrics is set to true, more apps follow typo metrics (more information below).
-
-- [ ] Test: what happens in other Adobe apps?
-- [ ] Test: is this also true for Adobe apps on Windows? (It must be... right?)
-- [ ] Test: what happens in Affinity apps, such as Affinity Designer and Affinity Publisher?
-
-### `win` metrics
-
-Generally, these set the top and bottom of each line in MS Word. This also sets where clipping occurs in glyphs.
-
-If *useTypeMetrics* is not true, win metrics also set line heights in Chrome and Firefox on Windows.
-
-If typo metrics differ from hhea metrics and *useTypeMetrics* is not true, win metrics are used by Chrome and Firefox on Windows.
-
-- [ ] Test: what happens in other Windows apps?
-
-### When *useTypoMetrics* is True
-
-If *useTypoMetrics* is set to True, most apps follow the typo metrics. 
-
-However, this causes a few issues:
-1. Mac apps now check if the typoAscender exceeds the /Agrave height, and apply tall metrics if not.
-2. MS Word will follow the typo metrics, including for its clipping boundaries – regardless of what win metrics are set.
-3. Because of issues 1 and 2, typo metrics *have to* be set well above the cap height, which can be unintuitive for InDesign users.
-4. Chrome on Mac still follows hhea, while Chrome on Windows follows typo. So, browsers can have mismatches between platforms.
-  1. When useTypoMetrics _is_ set, Windows Chrome & Firefox will split the typoLineGap and use half above and half below each line.
-
-- [ ] re-test MS Word clipping at typo values. [According to GlyphsApp docs, this should only happen in pre-2006 Office](https://glyphsapp.com/learn/vertical-metrics#:~:text=legacy%20Office%20software%20(i.e.%2C%20pre%2D2006)%20may%20apply%20clipping%20at%20the%20typo%20values%20rather%20than%20at%20the%20win%20values.)... but I am pretty sure it happens in my current version of MS Word for Windows 11
-
-## Tested Strategies
-
-All tested strategies share some basic features:
-- Vertical metrics are set the same for all styles of a family
-
-
-### Google Fonts
-
-See the [full recommendations](https://googlefonts.github.io/gf-guide/metrics.html) for details. They basically boil down to:
+Google Fonts baseline (for reference):
 
 ```py
-typoAscender   = Must exceed /Abreveacute (or, at a minimum, above /Agrave)
+typoAscender   = Must exceed /Abreveacute (or at least /Agrave)
 typoDescender  = capHeight - typoAscender
 typoLineGap    = 0
 
 useTypoMetrics = True
 
-# Must match typo metrics
-hheaAscender   = typoAscender
+hheaAscender   = typoAscender  # must match typo
 hheaDescender  = typoDescender
 hheaLineGap    = 0
 
 winAscent      = yMax in family
-winDescent     = absolute value of yMin in family # positive value
-
-# The sum of the font’s vertical metric values (absolute) should be 20-30% greater than the font’s UPM
-# This may need to be greater for scripts outside of Latin, Cyrillic, and Greek (e.g. Devanagari)
+winDescent     = abs(yMin in family)
+# Absolute sum of vertical metrics should be ~20–30% greater than UPM
+# (may need more for scripts outside Latin/Cyrillic/Greek)
 ```
 
-### Google Fonts Min
-
-Similar to "Google Fonts" strategy, but:
-- *typoAscender* (and *hheaAscender*) set equal to top of /Agrave, which is the minimum suggested by the Google Fonts Guide
-
-### Google Fonts Min Alt
-
-Similar to "Google Fonts Min" strategy, but:
-- Typo metrics set similar to Target Line Height strategy, with *typoAscender* at cap height and *typoLineGap* set to make up difference to `hhea`
-
-### Target Line Height
-
-Similar to Google Fonts strategy, but:
-- Starts with a target line height (and adjusts if it’s too small)
-- Sets `hhea` metrics based on target line height
-- Sets *typoAscender* specifically for InDesign, then uses *typoLineGap* to make up the difference to `hhea` line height
-- Sets *useTypoMetrics* to False, to allow hhea and win metrics to function well in other apps
+GlyphsApp defaults (from experimentation; example yMax=1300, yMin=−700):
 
 ```py
-# Set up your target line height
-Line Height = UPM * 1.4
-
-# hheaAscender must exceed /Agrave, or you should increase your Line Height
-hheaAscender   = Cap Height + ((Line Height - Cap Height) / 2)
-hheaDescender  = Cap Height - hheaAscender
-hheaLineGap    = 0
-
-# typoAscender controls framing in InDesign
-typoAscender   = Cap Height
-typoDescender  = hheaDescender
-typoLineGap    = absolute value of hheaDescender # positive value
-
-# important, or macOS app line height will be wrong in e.g. TextEdit
-useTypoMetrics = False
-
-# Sets default line heights and clipping heights in MS Word, etc
-winAscent      = yMax in family
-winDescent     = absolute value of yMin in family # positive value
-```
-
-### Target Line Height B
-
-Like "Target Line Height", but with the following changes:
-- Matches `win` values to `hhea`, to match line heights at the expense of some possible clipping
-
-```py
-# Sets default line heights and clipping heights in MS Word, etc
-winAscent      = hheaAscender
-winDescent     = absolute value of hheaDescender # positive value
-```
-
-### Adobe Fonts
-
-- [ ] todo: add this test? GlyphsApp does call this a "Legacy" strategy, however
-
-### GlyphsApp Defaults
-
-Based on some experimentation, it seems that the GlyphsApp default strategy (if custom parameters are left unset) is the following.
-
-```py
-# highest and lowest Y coordinates in the font are y=1300 and y=-700
-
-# typoAscender controls framing in InDesign
-typoAscender   = Basic "ascender" value of font
-typoDescender  = Basic "descender" value of font
+typoAscender   = Basic "ascender"
+typoDescender  = Basic "descender"
 typoLineGap    = UPM - typoAscender
 
-# hheaAscender must exceed /Agrave, or you should increase your Line Height
-hheaAscender   = (UPM * 1.2) - basic "descender" value of font
+hheaAscender   = (UPM * 1.2) - basic "descender"
 hheaDescender  = typoDescender
 hheaLineGap    = 0
 
 useTypoMetrics = False
 
-# Sets default line heights and clipping heights in MS Word, etc
 winAscent      = hheaAscender
-winDescent     = absolute value of hheaDescender
+winDescent     = abs(hheaDescender)
 ```
 
+### Why not just Google Fonts?
 
-## Why not just use the Google Fonts strategy?
+GF metrics dominate (Google Fonts catalog + Font Bakery / Fontspector checks), but:
 
-There are several metrics strategies, but one of the most common is [the “Google Fonts” strategy for vertical metrics](googlefonts.github.io/gf-guide/metrics.html). It is used for all (or almost all) fonts on Google Fonts, and these fonts have massive usage. It is also suggested by a collection of checks within [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/), which further reinforces its dominance.
+- **InDesign:** typoAsc above /Abreveacute pushes the first line down from the frame top. Fixable in Text Frame Options, but not ideal by default.
+- **Word clipping:** Setting `win` past yMax/yMin is meant to prevent clipping—but with `useTypoMetrics` True, Word follows typo, so clipping still happens at typo bounds (observed on Word for Windows 11).
+- **UI bias:** Centering caps in typo/hhea helps web UI; script fonts with low x-height or tall swashes may need a different balance.
+- **No target line height:** GF is “exceed these glyphs,” not “start from 1.5× UPM.” Reaching a specific default LH takes extra understanding.
 
-However, there are a few pitfalls of the Google Fonts strategy.
+This repo also aims to document checks contributed to [Font Bakery](https://github.com/fonttools/fontbakery) and [Fontspector](https://github.com/fonttools/fontspector/).
 
-- It is web-focused, and does not create intuitive results for Adobe InDesign.
-  - It suggests setting the typoAscender to exceed the /Abreveacute (Ắ). In InDesign, this pushes the first line of text significantly downwards from the top of the text frame, which can make it challenging to align text. (This is solvable by diving into text frame options, but it would be preferable to not require users do this.)
-- It suggests that setting win metrics to exceed the min and max Y values of a family will prevent Microsoft Word from clipping shapes in the font. However, it also requires setting "Use Typo Metrics" to True, which causes MS Word to ... use Typo metrics ... at which point, clipping still *does* occur (as of Microsoft Word in Windows 11).
-- It is biased towards the needs of fonts within the context of web UI.
-  - It suggests centering caps within the typo/hhea metrics, which is very helpful in web UI, but may not always work well for fonts with atypical sizing relationships. In particular, many script fonts have a very low x-Height (relative to Cap Height), and may also have very tall swashes.
-- It doesn’t allow the designer to start with a *target* line height, and is instead just a series of glyphs to exceed. So, if a designer wants to satisfy the Google Fonts guidelines, but also make a default line height of 1.5x UPM, they have to understand a lot to get there.
+## Goals
+
+Ideal strategy properties:
+
+- As consistent as practical across platforms and apps
+- Intuitive to use and read in each major app
+- Simple enough to describe and adapt for design goals
 
 ## Test approach
 
-1. Create a Glyphs source which...
-   1. Uses individual Exports settings to vary vertical metrics for testing different approaches.
-   2. Includes glyphs that contains vertical measurements, which will have alternates which are exported specific to different test exports. (See diagram below)
-2. Build via FontMake
-3. Test each export in multiple apps and platforms, with screenshots to document results.
-   1. Chrome
-      1. Safari?
-      2. Firefox?
-   2. Mac TextEdit (CoreText)
-   3. Adobe InDesign
-   4. Adobe Illustrator
-   5. MS Word on Windows
-   6. MS Word on Mac
-   7. Android?
-   8. iOS?
-   9. Maybe create a submission process, if others wish to contribute their own screenshots?
-4. Store those screenshots, with additional notes as needed, in this repo.
+1. Glyphs source with per-export vertical metrics, plus measurement diagrams in glyph alternates (see below).
+2. Build with FontMake.
+3. Test exports in priority apps; store screenshots and notes here.
+4. Optional later: contribution path for others’ screenshots.
 
-Test text (the question and exclamation glyphs store metrics diagrams):
+**Priority apps:** Chrome (Safari/Firefox?), Mac TextEdit, InDesign, Illustrator, MS Word (Windows + Mac), Android?, iOS?
+
+Test text (`?` / `!` hold metrics diagrams):
 
 ```
 HẮÀbỵ? !
@@ -317,114 +181,78 @@ HẮÀbỵ?!
 HẮÀbỵ? !
 ```
 
-Test fonts have their /question (?) glyph replaced with a diagram which shows their vertical metrics values:
-
 ![Diagram of Vertical Metrics Test Glyph](docs/screenshots/vm-test-glyph-diagram.png)
 
-## Test Results
+## Test results
 
 ### InDesign
 
-Observations:
-- Follows typo metrics for top alignment, regardless of *useTypoMetrics* setting.
-- Gives default line height of 120% (Justification > Auto Leading, Shift+Command+Option+J), regardless of font metrics.
-
-Opinions:
-- Reasonable results come from setting typoAscender to Cap Height or basic Ascender value, with *useTypoMetrics* set to False.
-- Google Fonts approaches result in an unintuitive space at the top of text frames.
-
-Additional notes:
-- Sets all fonts to a line height of 120% (of the UPM), by default. This can be adjusted in Justification settings (Shift+Option+Command+J) > Auto Leading 
-- Sets top of text based on typoAscender. This can be changed per text frame: right click on text frame, go to Text Frame Options (Command+B) > Baseline Options > First Baseline, and you can choose a different Offset basis.
+- Top alignment follows `typoAscender` regardless of `useTypoMetrics`.
+- Default auto leading: 120% UPM (Justification → Auto Leading).
+- Cap-height (or basic ascender) `typoAscender` with `useTypoMetrics` False reads well; GF pushes an unintuitive gap at the top of frames.
+- Overrides: Text Frame Options → Baseline Options → First Baseline.
 
 ![Test results in InDesign](docs/screenshots/screenshot-mac-indesign-260315.png)
 
 ### Illustrator
 
-Vertical metrics have little to no bearing on font alignment in Illustrator.
+Vertical metrics barely affect alignment. By default, top offset follows lowercase ascenders.
 
-By default, fonts are aligned so that the top of lowercase ascenders sets the offset from the top of the frame.
-
-Illustrator text Modes:
-- In “Area Type” mode (ideal for text blocks), the top of lowercase ascenders sets the offset from the top of the frame, and the user controls the rest.
-  - If text is highlighted (e.g. for editing), the highlight height is set by typoAscender–typoDescender (typoGap is not included, if present)
-- In “Point Type” mode (ideal for short lines of text), the minimum text frame top is set by the lowercase ascenders, and will scale if taller glyphs are typed. If a very tall glyph is typed, the text frame expands to fit it. The minimum text frame bottom appears to be set by the lowest y value in the font*.
-
-Additional notes:
-  - Sets all fonts to a line height of 120% (of the UPM), by default.
-  - Going from Area Type and Point Type retains the baselines of text. However, going from Point Type to Area Type moves type up to the top of the Point Type frame. (Does this matter to type designers? Probably not much. It is interesting and a bit odd, though!)
+- **Area Type:** top ≈ lowercase ascenders; selection highlight height ≈ typoAsc − typoDesc (gap ignored).
+- **Point Type:** min top ≈ lowercase ascenders; frame grows for taller glyphs; min bottom ≈ lowest y in the font.
+- Default leading: 120% UPM. Switching Point → Area Type can reflow to the top of the former point frame.
 
 ![Test results in Illustrator](docs/screenshots/screenshot-mac-illustrator-260322.png)
 
 ### macOS TextEdit (CoreText)
 
-Observations:
-- TextEdit presents line height as `hheaDescender` to `hheaAscender`, when line spacing is set to "1.0" (the default). Higher values multiply the `hhea` total.
-- The standard Google Fonts approach yields line heights that are tall relative to other approaches (about 155% of UPM, vs around 120%–140%).
-- TextEdit bases line heights on hhea metrics, regardless of *useTypoMetrics* setting.
-- If the hheaAscender is lower than the y Max of a font, shapes in the first line which exceed the hheaAscender will be cut off.
+- Default Line Space ≈ 1.2 × (`hheaAscender` − `hheaDescender`); always based on `hhea`, even if `useTypoMetrics` is True.
+- GF approaches land ~155% UPM vs ~140% for target-line-height approaches.
+- Glyphs above `hheaAscender` clip on the first line.
 
-At a user-set Line Space of 1.0:
-![Vertical metrics tests in TextEdit at default Line Space of 1.0](docs/screenshots/mac-textedit-vmtest-linespace_1.0-screenshot-260315.png)
+At Line Space 1.0 / 1.2:
 
-At a user-set Line Space of 1.2:
-![Vertical metrics tests in TextEdit at default Line Space of 1.2](docs/screenshots/mac-textedit-vmtest-linespace_1.2_default-screenshot-260315.png)
+![Vertical metrics tests in TextEdit](docs/screenshots/mac-textedit-vmtest-linespace_1.2_default-screenshot-260315.png)
 
 <details>
-<summary>
-TextEdit bases line heights on hhea metrics, even if *useTypoMetrics* setting is True
-</summary>
+<summary>useTypoMetrics True still follows hhea</summary>
 
-![TextEdit testing 'use Typo metrics' setting](docs/screenshots/mac-textedit-vmtest-linespace_1.0-useTypoMetrics-screenshot-260315.png)
+![TextEdit testing useTypoMetrics](docs/screenshots/mac-textedit-vmtest-linespace_1.0-useTypoMetrics-screenshot-260315.png)
 
 </details>
 
 <details>
-<summary>
-Test: hheaAscender slightly lower than /Agrave
-</summary>
+<summary>hheaAscender below /Agrave → ~150% UPM fallback</summary>
 
-If *hheaAscender* is lower than the height of the /Agrave font, macOS ignores hhea metrics, and instead gives much taller height.
+macOS ignores `hhea` (and does not fall back to typo or win). Observed ~150% of UPM.
 
-Notably, it doesn’t matter what typoAscender is, or whether *useTypoMetrics* is true. It doesn’t follow win Metrics. It appears to assign a line height of 150% of the UPM.
+![Agrave exceeds hheaAscender](docs/screenshots/mac-textedit-vmtest-linespace_1.0-agrave_exceeds_agrave-screenshot-260315.png)
 
-![Test: hheaAscender slightly lower than /Agrave](docs/screenshots/mac-textedit-vmtest-linespace_1.0-agrave_exceeds_agrave-screenshot-260315.png)
-
-![Test: hheaAscender slightly lower than /Agrave, win metrics are very tall](docs/screenshots/mac-textedit-vmtest-linespace_1.0-agrave_exceeds_agrave_tall_win_metrics-screenshot-260315.png)
+![Same, with tall win metrics](docs/screenshots/mac-textedit-vmtest-linespace_1.0-agrave_exceeds_agrave_tall_win_metrics-screenshot-260315.png)
 
 </details>
 
-
-- [ ] test on latest version of macOS
-- [ ] test and screenshot impact of /Agrave exceeding typo ascender, and also hhea ascender
+Open checks: latest macOS; Agrave vs typoAsc when that differs from hheaAsc.
 
 ### Windows 11 Word
 
-Observations
-- Default line spacing is 1.08, with 8pt after each paragraph.
-- To understand how MS Word decides line height, you need to adjust to Line Spacing: Single.
-- MS Word uses Win metrics to set line metrics, or typo metrics if *useTypoMetrics* is True.
-- If *useTypoMetrics* is True, shapes get clipped at the typo metrics. If *useTypoMetrics* is False, shapes do not get clipped aside from tall parts of the first line on a page.
-- If any clipping is unacceptable, it is important to set Win metrics past the highest/lowest coordinates. If *useTypoMetrics* is True, typo metrics must also be set past the highest/lowest coordinates.
-- Aside: it is important to keep short family names (31 characters or fewer) for test fonts, or the /Abreveacute will not be displayed. See Font Bakery check [name/family_and_style_max_length](https://github.com/fonttools/fontbakery/blob/9a85e003d36ebfbbfe68c6d362e5db5a6434332c/Lib/fontbakery/checks/name/family_and_style_max_length.py).
+- Default: line spacing 1.08 + 8pt after paragraph. Use **Line Spacing: Single** to see metrics clearly.
+- Uses `win`, or `typo` if `useTypoMetrics` True.
+- Clipping: at typo when `useTypoMetrics` True; with False, generally no clip except tall parts of the first line on a page.
+- Keep family names ≤ 31 characters or /Abreveacute may not show ([Font Bakery `name/family_and_style_max_length`](https://github.com/fonttools/fontbakery/blob/9a85e003d36ebfbbfe68c6d362e5db5a6434332c/Lib/fontbakery/checks/name/family_and_style_max_length.py)).
 
-Opinions
-- "Target Line Height B" works best here. It is nice to set Win metrics to match hhea metrics, for better consistency between Word and other apps. If your target line height is close to your highest/lowest points, only the first line may have a small amount of clipping in the tallest shapes. If this is unacceptable, it is better to set win metrics equal to highest/lowest points.
-- The Google Fonts approach also works relatively well, but it is pretty tall, and it would clip anything taller than the Abreveacute (such as possible tall swashes).
+**Target Line Height B** fits best for consistency with other apps. GF works but runs tall and can clip anything taller than /Abreveacute (e.g. swashes).
 
-The following screenshots have Line Spacing set to “Single.” By default, they are slight taller (1.08).
+Screenshots below use Line Spacing: Single.
 
-![Windows 11 Word: "Target 1400 B" strategy](docs/screenshots/win11-word-Target1400B.png)
-![Windows 11 Word: "Target 1400" strategy](docs/screenshots/win11-word-Target1400.png)
-![Windows 11 Word: "Google Fonts" strategy](docs/screenshots/win11-word-GF.png)
+![Windows 11 Word: Target 1400 B](docs/screenshots/win11-word-Target1400B.png)
+![Windows 11 Word: Target 1400](docs/screenshots/win11-word-Target1400.png)
+![Windows 11 Word: Google Fonts](docs/screenshots/win11-word-GF.png)
 
 <details>
-<summary>
-Additional test screenshots from Windows
-</summary>
+<summary>Additional Windows screenshots</summary>
 
-![Windows 11 Word: default line spacing settings](docs/screenshots/win11-word-linespace-options-defaults.png)
-
+![Default line spacing settings](docs/screenshots/win11-word-linespace-options-defaults.png)
 ![GF Min](docs/screenshots/win11-word-GFMin.png)
 ![GF Min Alt](docs/screenshots/win11-word-GFMinAlt.png)
 ![Glyphs Default](docs/screenshots/win11-word-GlyphsDefault.png)
@@ -433,83 +261,51 @@ Additional test screenshots from Windows
 
 ### Chrome
 
-- [ ] TODO: test the following, and edit details if necessary.
+- [ ] Re-test and confirm details below; add screenshots with and without CSS `line-height`; compare Firefox/Safari.
 
-Acts a little differently, depending on OS.
+Follows `hhea`, or `typo` if `useTypoMetrics` (behavior differs by OS). Applies only when CSS `line-height` is unset; when set, line height is based on UPM.
 
-Previous testing has shown that Chrome follows hhea metrics, or typo metrics if *useTypoMetrics* is True.
+### Affinity
 
-This is only the case for the default line height, shown when `line-height` CSS is not set.
+Tested on Mac, Mid June 26 (4557).
 
-When `line-height` CSS *is* set, the line height is based on the font’s UPM.
-
-- [ ] screenshot with `line-height` CSS set
-- [ ] screenshot without `line-height` CSS set
-- [ ] Determine whether Firefox and Safari match Chrome
-
-
-### Affinity 
-
-(Tested on Mac, Version: Mid June 26 (4557).)
-
-Seems to align text with top set to the basic lowercase ascender, e.g. the top of /b. (Would need more testing to be certain of this.)
-
-Sets default line height based on hhea metrics, regardless of whether *useTypoMetrics* is set.
+Default line height from `hhea` regardless of `useTypoMetrics`. Top alignment appears to follow lowercase ascender (/b)—needs more confirmation.
 
 ![Vertical metrics tests in Affinity](docs/screenshots/screenshot-mac-affinity-260622.png)
 
-
 ## Setting vertical metrics in font editors
 
-- [ ] TODO: maybe :)
-
-- GlyphsApp
-- RoboFont
-- FontLab
-
+- [ ] TODO: GlyphsApp, RoboFont, FontLab
 
 ## Note on CJK fonts
 
-In the [OpenType specification for OS/2 typoAscender](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender), it says:
-
-> For CJK (Chinese, Japanese, and Korean) fonts that are intended to be used for vertical (as well as horizontal) layout, the required value for sTypoAscender is that which describes the top of the ideographic em-box.
-
-Along with CJK vertical metrics in general, this has not been tested (yet) in this repo, but it is probably sound advice. It is mentioned here because “required value” is pretty strong language, so any future CJK testing should most likely adhere to this requirement.
+The [OpenType OS/2 typoAscender](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender) spec requires that for CJK fonts meant for vertical as well as horizontal layout, `sTypoAscender` describe the top of the ideographic em-box. Not tested here yet; future CJK work should treat that as required.
 
 ## Build
 
-First, you need Python installed. You can get it from python.org if you haven’t yet installed it.
+Requires Python ([python.org](https://www.python.org/)).
 
-Then, you can run the setup:
-
-`make setup`
-
-Finally, run the build:
-
-`make build`
-
+```sh
+make setup
+make build
+```
 
 ## Contributing
 
-This project is inherently limited, and can’t feasibly test all possible combinations of vertical metrics, applications, and operating systems. Instead, it attempts to be relatively thorough in testing applications subjectively considered to be “high priority” text environments. That is, if you are a type designer, and you are primarily focused on making fonts for graphic designs, agencies, and brands, you probably want to know how metrics operate in the apps tested, here.
+This project cannot cover every metrics × app × OS combination. It prioritizes environments that matter for type design aimed at graphic design, agencies, and brands.
 
-That said, contributions are very welcome!
-
-If you have suggestions or questions, please [file them in an Issue](https://github.com/arrowtype/vertical-metrics/issues). Better yet, if you do some testing of your own and learn something new, please file an Issue, along with screenshots, notes about what you learned from your test, and details of the app & OS versions.
-
-If you spot any typos or simple mistakes, please don’t hesitate to [make a Pull Request](https://github.com/arrowtype/vertical-metrics/pulls) with a fix!
-
+Suggestions and questions: [open an Issue](https://github.com/arrowtype/vertical-metrics/issues). New tests with screenshots, notes, and app/OS versions are especially welcome. Typos and small fixes: [Pull Requests](https://github.com/arrowtype/vertical-metrics/pulls).
 
 ## Credits
 
-Many thanks to:
-- [The Type Founders](https://thetypefounders.com/), for supporting this testing and research, and encouraging it to be openly published.
-- [Google Fonts](https://fonts.google.com/), for informing this approach and documentation, as well as for their support of foundational tools used here.
-- José Solé of [Dogray Type Foundry](https://www.dograytype.com/), for pushing me to reconsider my prior assumptions about line metrics.
-- [ArrowType](https://www.arrowtype.com/) (Stephen Nixon) for the primary design, writing, and testing done for this repo.
+Thanks to:
 
+- [The Type Founders](https://thetypefounders.com/), for supporting this research and open publication
+- [Google Fonts](https://fonts.google.com/), for informing the approach and for foundational tooling
+- José Solé of [Dogray Type Foundry](https://www.dograytype.com/), for pushing a rethink of prior assumptions
+- [ArrowType](https://www.arrowtype.com/) (Stephen Nixon), for design, writing, and testing
 
-## Background Resources
+## Background resources
 
 - [OpenType Spec: OS/2 Table](https://learn.microsoft.com/en-us/typography/opentype/spec/os2)
 - [OpenType Spec: hhea Table](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea)
