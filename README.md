@@ -365,7 +365,7 @@ Observations:
 - If the hheaAscender is lower than the y Max of a font, shapes in the first line which exceed the hheaAscender, will be cut off.
 
 At a user-set Line Space of 1.0:
-![Vertical metrics tests in TextEdit at default Line Space of 1.2](docs/screenshots/mac-textedit-vmtest-linespace_1.2_default-screenshot-260315.png)
+![Vertical metrics tests in TextEdit at default Line Space of 1.0](docs/screenshots/mac-textedit-vmtest-linespace_1.0-screenshot-260315.png)
 
 At a user-set Line Space of 1.2:
 ![Vertical metrics tests in TextEdit at default Line Space of 1.2](docs/screenshots/mac-textedit-vmtest-linespace_1.2_default-screenshot-260315.png)
