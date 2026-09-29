@@ -309,7 +309,28 @@ Default line height from `hhea` regardless of `useTypoMetrics`. Top alignment ap
 
 ## Setting vertical metrics in font editors
 
-- [ ] TODO: GlyphsApp, RoboFont, FontLab
+### GlyphsApp
+
+Set via Custom Parameters.
+
+[Here’s a detailed guide.](https://glyphsapp.com/learn/vertical-metrics)
+
+### RoboFont
+
+Set in the Font Info > OpenType tab.
+
+[Here’s a detailed guide.](https://robofont.com/documentation/reference/workspace/font-overview/font-info-sheet/opentype/)
+
+### FontLab
+
+[Here’s a detailed guide.](https://help.fontlab.com/fontlab/8/tutorials/calfonts/3.%20Fitting%20and%20Spacing/3b-1%20Ninety%20Second%20Vertical%20Metrics/)
+
+Notes:
+- FontLab font info calls typoAscender simply “ascender”. This should *not* match the drawn lowercase ascender on glyphs like `h` , as detailed above
+    - Likewise, FontLab’s “descender” setting is the typoDescender.
+- FontLab sets hhea to match OS/2 `typo` values by default, unless you check **Other Values > Custom hhea linespacing**
+- FontLab calls winAscent the “Safe Top”
+    - winDescent is set via “Safe Bottom”
 
 ## Note on CJK fonts
 
