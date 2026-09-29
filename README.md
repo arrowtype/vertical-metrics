@@ -277,7 +277,7 @@ Screenshots below use Line Spacing: Single.
 ![Windows 11 Word: Google Fonts](docs/screenshots/win11-word-GF.png)
 
 <details>
-<summary>Additional Windows screenshots</summary>
+<summary>Additional Windows screenshots, including line spacing default settings panel</summary>
 
 ![Default line spacing settings](docs/screenshots/win11-word-linespace-options-defaults.png)
 ![GF Min](docs/screenshots/win11-word-GFMin.png)
@@ -286,11 +286,18 @@ Screenshots below use Line Spacing: Single.
 
 </details>
 
-### Chrome
+### Chrome & Firefox
 
 - [ ] Re-test and confirm details below; add screenshots with and without CSS `line-height`; compare Firefox/Safari.
 
-Follows `hhea`, or `typo` if `useTypoMetrics` (behavior differs by OS). Applies only when CSS `line-height` is unset; when set, line height is based on UPM.
+- On Windows, follows `win`, or `typo` if `useTypoMetrics` 
+- On Android, follows `hhea`, or `typo` if `useTypoMetrics` 
+- On macOS, always uses `hhea` on macOS, even when `useTypeMetrics` is true. 
+- Applies only when CSS `line-height` is unset; when set, line height is based on UPM, but relative positioning (i.e., centering) is derived from line metrics.
+
+### Safari (macOS & iOS)
+
+- Always uses `hhea`, even when `useTypeMetrics` is true. 
 
 ### Affinity
 
