@@ -359,10 +359,10 @@ Additional notes:
 ### macOS TextEdit (CoreText)
 
 Observations:
-- TextEdit gives a default Line Space of 1.2 × the distance of `hheaDescender` to *hheaAscender*
-- The standard Google Fonts approach yields line heights that are tall relative to other approaches (about 155% of UPM, vs around 140%).
+- TextEdit presents line height as `hheaDescender` to `hheaAscender`, when line spacing is set to "1.0" (the default). Higher values multiply the `hhea` total.
+- The standard Google Fonts approach yields line heights that are tall relative to other approaches (about 155% of UPM, vs around 120%–140%).
 - TextEdit bases line heights on hhea metrics, regardless of *useTypoMetrics* setting.
-- If the hheaAscender is lower than the y Max of a font, shapes in the first line which exceed the hheaAscender, will be cut off.
+- If the hheaAscender is lower than the y Max of a font, shapes in the first line which exceed the hheaAscender will be cut off.
 
 At a user-set Line Space of 1.0:
 ![Vertical metrics tests in TextEdit at default Line Space of 1.0](docs/screenshots/mac-textedit-vmtest-linespace_1.0-screenshot-260315.png)
