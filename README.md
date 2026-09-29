@@ -3,7 +3,7 @@
 Notes and tests for vertical metrics strategies in fonts—especially how OpenType `hhea`, `typo`, and `win` values behave across important apps.
 
 > [!WARNING]
-> Early work in progress: an evolving hypothesis based on incomplete testing. Focused on Latin and other primarily horizontal scripts; incomplete for CJK.
+> Work in progress: this is an evolving hypothesis based on incomplete testing. Focused on Latin and other primarily horizontal scripts; incomplete for CJK.
 
 **Thesis:** For Latin UI and print, set a target line height with cap-centered `hhea`, InDesign-friendly `typo` + gap, `useTypoMetrics` off, and `win` matched to `hhea` (or to yMax/yMin if you must avoid clipping). That splits roles across apps better than the Google Fonts “everything follows typo” model.
 
@@ -21,7 +21,7 @@ hheaDescender  = Cap Height - hheaAscender
 hheaLineGap    = 0
 
 # typoAscender controls framing in InDesign
-typoAscender   = Cap Height
+typoAscender   = Cap Height # some prefer to match the lowercase ascender; see note below
 typoDescender  = hheaDescender
 typoLineGap    = abs(hheaDescender)  # positive
 
@@ -33,7 +33,22 @@ winAscent      = hheaAscender  # or yMax if greater and avoiding clipping matter
 winDescent     = abs(hheaDescender)  # or abs(yMin) under the same tradeoff
 ```
 
-This is the **Target Line Height B** strategy below. Prefer matching `win` to `hhea` for consistency; use yMax/yMin only when clipping is unacceptable.
+> [!NOTE]
+> If, in InDesign, you want to align text based on the lowercase ascender, rather than the cap height, you can use the above recomendation, but adjust your `typo` values. This will better match results in Illustrator and Affinity, where text is aligned based on the lowercase ascender height.
+
+```py
+typoAscender   = Lowercase Ascender # top of letters like 'b' and 'd'
+typoDescender  = hheaDescender
+typoLineGap    = abs(hheaDescender - (Lowercase Ascender - Cap Height)) # Makes up for difference in typoAscender; this is a positive value
+```
+
+This is the **Target Line Height B** strategy in testing below. Prefer matching `win` to `hhea` for consistency; use yMax/yMin only when clipping is unacceptable.
+
+## Video presentation
+
+This research was presented and explained at the 2026 TypeLab font conference. Here is a re-recording of that presentation:
+
+[![Watch the video](https://img.youtube.com/vi/51SOQx8xdSg/maxresdefault.jpg)](https://www.youtube.com/watch?v=51SOQx8xdSg)
 
 ## What are vertical metrics?
 
