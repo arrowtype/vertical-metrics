@@ -288,8 +288,6 @@ Screenshots below use Line Spacing: Single.
 
 ### Chrome & Firefox
 
-- [ ] Re-test and confirm details below; add screenshots with and without CSS `line-height`; compare Firefox/Safari.
-
 - On Windows, follows `win`, or `typo` if `useTypoMetrics` 
 - On Android, follows `hhea`, or `typo` if `useTypoMetrics` 
 - On macOS, always uses `hhea` on macOS, even when `useTypeMetrics` is true. 
@@ -344,6 +342,12 @@ Requires Python ([python.org](https://www.python.org/)).
 make setup
 make build
 ```
+
+## Possible to-do items
+
+- [ ] Variable fonts: aside from `hheaLineGap` being ignored in variable fonts on macOS, are variable fonts handled differently from static fonts in any key apps/contexts?
+- [ ] Web metrics: Re-test and confirm details; add screenshots with and without CSS `line-height`; compare Firefox/Safari.
+- [ ] Double-check Adobe app behavior on Windows – it is very likely the same as on Mac, but this wasn’t tested here.
 
 ## Contributing
 
