@@ -69,32 +69,34 @@ Users can often override defaults (e.g. CSS `line-height`), but vertical centeri
 
 They are **not** the basic “ascender” / “descender” guidelines in most font editors (those are mainly drawing guides, and can help set up zones for autohinting). Editor-specific how-tos: [Setting vertical metrics in font editors](#setting-vertical-metrics-in-font-editors).
 
-| Name in this guide | OpenType field                                                                                              |
-| ------------------ | ----------------------------------------------------------------------------------------------------------- |
-| **hheaAscender**   | [`ascender`](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea) (hhea)                        |
-| **hheaDescender**  | [`descender`](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea) (hhea)                       |
-| **hheaLineGap**    | [`lineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea) (hhea)                         |
-| **typoAscender**   | [`sTypoAscender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender) (OS/2)      |
-| **typoDescender**  | [`sTypoDescender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypodescender) (OS/2)    |
-| **typoLineGap**    | [`sTypoLineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypolinegap) (OS/2)        |
-| **winAscent**      | [`usWinAscent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswinascent) (OS/2)          |
-| **winDescent**     | [`usWinDescent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswindescent) (OS/2)        |
-| **useTypoMetrics** | Bit 7 of [`fsSelection`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#fsselection) (OS/2) |
+| Name in this guide | OpenType field                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| **hheaAscender**   | [`ascender`](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea) (hhea)                         |
+| **hheaDescender**  | [`descender`](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea) (hhea)                        |
+| **hheaLineGap**    | [`lineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea) (hhea)                          |
+| **typoAscender**   | [`sTypoAscender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender) (OS/2)       |
+| **typoDescender**  | [`sTypoDescender`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypodescender) (OS/2)     |
+| **typoLineGap**    | [`sTypoLineGap`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypolinegap) (OS/2)         |
+| **winAscent**      | [`usWinAscent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswinascent) (OS/2)           |
+| **winDescent**     | [`usWinDescent`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswindescent) (OS/2)         |
+| **useTypoMetrics** | Bit 7 of [`fsSelection`](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#fsselection)* (OS/2) |
 
 Editor labels vary slightly; the roles above are the same.
+
+(*By the way: `fsSelection` is a uint16 value, which are numbered 15 to 0, so Bit 7 is in the _eigth_ column when counted from the right: `00000000 1️⃣0000000`.)
 
 The OpenType spec says `hhea` is Apple-specific and that `sTypo*` is preferred for new layout. Apple’s docs stay vague (“highest ascender”, “lowest descender”, “typographic line gap”). Real behavior is app-specific; see below.
 
 ## Behavior by app
 
-| App                       | Used for line layout                                                       | Notable quirks                                                                                                                                                                    |
-| ------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| macOS TextEdit (CoreText) | `hhea` (even if `useTypoMetrics`)                                          | If `hheaAscender` &lt; /Agrave, macOS ignores `hhea` and assigns ~150% UPM. Tall glyphs above `hheaAscender` clip on the first line. macOS ignores hheaLineGap in variable fonts. |
-| InDesign                  | `typoAscender` for alignment to top of text frame                          | Default auto leading is always **120% of UPM**, ignoring typo sum. Cap-height (or near) `typoAscender` is most intuitive.                                                         |
-| MS Word (Win)             | `win`, or `typo` if `useTypoMetrics`                                       | Default spacing is 1.08 + 8pt after; use **Single** to see metrics. With `useTypoMetrics`, clipping follows typo bounds, even if `win` is taller.                                 |
-| Chrome / Firefox          | `hhea`, or `typo` if `useTypoMetrics` (Windows); Mac Chrome follows `hhea` | Only default line-height; CSS `line-height` uses UPM, but metrics still define text position within specified CSS `line-height`. Platform mismatch when `useTypoMetrics` is on.   |
-| Affinity (Mac)            | `hhea` for default line height                                             | Top alignment ≈ lowercase ascender (appears to match to glyphs like “b”).                                                                                                         |
-| Illustrator               | Mostly ignores these metrics                                               | Area Type tops at lowercase ascenders; highlight height uses typo asc−desc (no gap). Default leading 120% UPM.                                                                    |
+| App                       | Used for line layout                                                       | Notable quirks                                                                                                                                                                  |
+| ------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| macOS TextEdit (CoreText) | `hhea` (even if `useTypoMetrics`)                                          | If `hheaAscender` &lt; /Agrave, macOS ignores `hhea` and assigns ~150% UPM. macOS ignores `hheaLineGap` in variable fonts.                                                      |
+| InDesign                  | `typoAscender` for alignment to top of text frame                          | Default auto leading is always **120% of UPM**, ignoring typo sum. Cap-height (or near) `typoAscender` is most intuitive.                                                       |
+| MS Word (Win)             | `win`, or `typo` if `useTypoMetrics`                                       | Default spacing is 1.08 + 8pt after; use **Single** to see metrics. With `useTypoMetrics`, clipping follows typo bounds, even if `win` is taller.                               |
+| Chrome / Firefox          | `hhea`, or `typo` if `useTypoMetrics` (Windows); Mac Chrome follows `hhea` | Only default line-height; CSS `line-height` uses UPM, but metrics still define text position within specified CSS `line-height`. Platform mismatch when `useTypoMetrics` is on. |
+| Affinity (Mac)            | `hhea` for default line height                                             | Top alignment ≈ lowercase ascender (appears to match to glyphs like “b”).                                                                                                       |
+| Illustrator               | Mostly ignores these metrics                                               | Area Type aligns the top of text frames on lowercase ascenders; highlight height uses typo asc−desc (no gap). Default leading 120% UPM.                                         |
 
 ### When `useTypoMetrics` is True
 
@@ -106,7 +108,7 @@ Most apps follow typo metrics, but:
 4. Chrome on Mac still follows `hhea`; Chrome/Firefox on Windows follow typo (and split `typoLineGap` half above / half below). Cross-platform mismatch if `hhea` ≠ `typo`.
 
 > [!NOTE]
-> Glyphs docs say typo clipping in Office is legacy (pre-2006). Current MS Word on Windows 11 still appeared to clip at typo when `useTypoMetrics` is on—worth re-checking.
+> GlyphsApp docs say typo clipping in Office is legacy (pre-2006). Current MS Word on Windows 11 still appeared to clip at typo when `useTypoMetrics`, but this could be worth re-checking.
 
 ### Implications for the recommendation
 
