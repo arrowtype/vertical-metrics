@@ -1,0 +1,188 @@
+{
+.appVersion = "3534";
+.formatVersion = 3;
+axes = (
+{
+name = Weight;
+tag = wght;
+}
+);
+customParameters = (
+{
+name = fsType;
+value = (
+0
+);
+}
+);
+date = "2026-04-08 15:07:25 +0000";
+familyName = "Vm Test";
+fontMaster = (
+{
+axesValues = (
+400
+);
+id = m01;
+metricValues = (
+{
+over = 16;
+pos = 750;
+},
+{
+over = 16;
+pos = 700;
+},
+{
+over = 16;
+pos = 540;
+},
+{
+over = -16;
+},
+{
+over = -16;
+pos = -200;
+},
+{
+}
+);
+name = Regular;
+},
+{
+axesValues = (
+401
+);
+id = m002;
+metricValues = (
+{
+over = 16;
+pos = 750;
+},
+{
+over = 16;
+pos = 700;
+},
+{
+over = 16;
+pos = 540;
+},
+{
+over = -16;
+},
+{
+over = -16;
+pos = -200;
+},
+{
+}
+);
+name = Book;
+}
+);
+instances = (
+{
+customParameters = (
+{
+name = fileName;
+value = "VmTest2026Target1400B-Variable";
+},
+{
+name = hheaAscender;
+value = 1050;
+},
+{
+name = hheaDescender;
+value = -350;
+},
+{
+name = hheaLineGap;
+value = 0;
+},
+{
+name = typoAscender;
+value = 700;
+},
+{
+name = typoDescender;
+value = -350;
+},
+{
+name = typoLineGap;
+value = 350;
+},
+{
+name = winAscent;
+value = 1050;
+},
+{
+name = winDescent;
+value = 350;
+},
+{
+name = "Use Typo Metrics";
+value = 0;
+}
+);
+name = Variable;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Vm Test 2026 Target 1400 B VF";
+}
+);
+}
+);
+type = variable;
+}
+);
+metrics = (
+{
+type = ascender;
+},
+{
+type = "cap height";
+},
+{
+type = "x-height";
+},
+{
+type = baseline;
+},
+{
+type = descender;
+},
+{
+type = "italic angle";
+}
+);
+properties = (
+{
+key = copyrights;
+values = (
+{
+language = dflt;
+value = "Copyright ArrowType 2026 (https://github.com/arrowtype/vertical-metrics). Font derived from Recursive (github.com/arrowtype/recursive).";
+}
+);
+},
+{
+key = licenses;
+values = (
+{
+language = dflt;
+value = "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL";
+}
+);
+},
+{
+key = vendorID;
+value = "@";
+}
+);
+unitsPerEm = 1000;
+versionMajor = 1;
+versionMinor = 0;
+}
