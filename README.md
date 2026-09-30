@@ -358,6 +358,7 @@ But, are results really different for variable fonts? Let’s test just Target 1
 | TextEdit (macOS 14 & 26, CoreText) | ✅                     | macOS ignores hheaLineGap in variable fonts, but recommended strategy excludes this. |
 | InDesign (macOS 26)                | ✅                     | -                                                                                    |
 | MS Word (Win 11)                   | TBD                   | -                                                                                    |
+| MS Word (macOS 26)                 | ✅                     | -                                                                                    |
 | Chrome (Win 11)                    | ✅                     | -                                                                                    |
 | Chrome (macOS 26)                  | ✅                     | -                                                                                    |
 | Chrome (Android 17)                | ✅                     | -                                                                                    |
