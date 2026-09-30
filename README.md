@@ -353,16 +353,19 @@ For variable fonts, the recommended strategy ("Target 1400 B") doesn’t align t
 
 But, are results really different for variable fonts? Let’s test just Target 1400 B, in Static vs Variable formats.  Screenshots at `docs/screenshots/static-vs-variable`.
 
-| App/Context               | Variable is the same? | Notes                                                                                |
-| ------------------------- | --------------------- | ------------------------------------------------------------------------------------ |
-| macOS TextEdit (CoreText) | ✅                     | macOS ignores hheaLineGap in variable fonts, but recommended strategy excludes this. |
-| InDesign                  | TBD                   | -                                                                                    |
-| MS Word (Win 11)          | TBD                   | -                                                                                    |
-| Chrome / Firefox (Win 11) | TBD                   | -                                                                                    |
-| Chrome / Firefox (macOS)  | TBD                   | -                                                                                    |
-| Chrome (Android 17)       | ✅                     | -                                                                                    |
-| Affinity (Mac)            | TBD                   | -                                                                                    |
-| Illustrator               | TBD                   | -                                                                                    |
+| App/Context                        | Variable is the same? | Notes                                                                                |
+| ---------------------------------- | --------------------- | ------------------------------------------------------------------------------------ |
+| TextEdit (macOS 14 & 26, CoreText) | ✅                     | macOS ignores hheaLineGap in variable fonts, but recommended strategy excludes this. |
+| InDesign (macOS 26)                | ✅                     | -                                                                                    |
+| MS Word (Win 11)                   | TBD                   | -                                                                                    |
+| Chrome (Win 11)                    | ✅                     | -                                                                                    |
+| Chrome (macOS 26)                  | ✅                     | -                                                                                    |
+| Chrome (Android 17)                | ✅                     | -                                                                                    |
+| Safari (macOS 26)                  | ✅                     | -                                                                                    |
+| Firefox (macOS 26)                 | ✅                     | -                                                                                    |
+| Firefox (Win 11)                   | ✅                     | -                                                                                    |
+| Affinity (Mac)                     | TBD                   | -                                                                                    |
+| Illustrator                        | TBD                   | -                                                                                    |
 
 
 ## Possible to-do items
