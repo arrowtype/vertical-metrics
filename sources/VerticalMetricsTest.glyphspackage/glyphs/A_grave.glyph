@@ -18,6 +18,24 @@ ref = gravecomb;
 }
 );
 width = 650;
+},
+{
+guides = (
+{
+pos = (315,976);
+}
+);
+layerId = m002;
+shapes = (
+{
+ref = A;
+},
+{
+pos = (34,163);
+ref = gravecomb;
+}
+);
+width = 650;
 }
 );
 unicode = 192;
