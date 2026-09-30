@@ -16,7 +16,7 @@ value = (
 }
 );
 date = "2026-04-08 15:07:25 +0000";
-familyName = "Vm Test";
+familyName = "Vm Test 2026 Target1400B VF";
 fontMaster = (
 {
 axesValues = (
@@ -124,17 +124,6 @@ value = 0;
 }
 );
 name = Variable;
-properties = (
-{
-key = familyNames;
-values = (
-{
-language = dflt;
-value = "Vm Test 2026 Target 1400 B VF";
-}
-);
-}
-);
 type = variable;
 }
 );
