@@ -3,6 +3,7 @@
 VENV := venv
 PIP := $(VENV)/bin/pip
 GLYPHS := sources/VerticalMetricsTest.glyphspackage
+GLYPHSVAR := sources/VerticalMetricsTest-Variable.glyphspackage
 OUTPUTDIR := fonts
 
 setup:
@@ -13,6 +14,7 @@ setup:
 build:
 	rm -rf $(OUTPUTDIR)
 	$(VENV)/bin/fontmake -o ttf -i -g '$(GLYPHS)' --output-dir $(OUTPUTDIR)
+	$(VENV)/bin/fontmake -o variable -g '$(GLYPHSVAR)' --output-dir $(OUTPUTDIR)
 
 install:
 	rm -rf ~/Library/Fonts/00-vertical-metrics-tests

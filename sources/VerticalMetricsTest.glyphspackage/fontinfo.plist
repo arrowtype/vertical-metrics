@@ -1,6 +1,12 @@
 {
-.appVersion = "3526";
+.appVersion = "3534";
 .formatVersion = 3;
+axes = (
+{
+name = Weight;
+tag = wght;
+}
+);
 customParameters = (
 {
 name = fsType;
@@ -13,6 +19,9 @@ date = "2026-04-08 15:07:25 +0000";
 familyName = "Vm Test";
 fontMaster = (
 {
+axesValues = (
+400
+);
 id = m01;
 metricValues = (
 {
@@ -42,6 +51,9 @@ name = Regular;
 );
 instances = (
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = typoAscender;
@@ -109,6 +121,9 @@ value = "Vm Test 2026 GF";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = typoAscender;
@@ -176,6 +191,9 @@ value = "Vm Test 2026 GF Min";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = hheaAscender;
@@ -243,6 +261,9 @@ value = "Vm Test 2026 GF Min Alt";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = hheaAscender;
@@ -310,6 +331,9 @@ value = "Vm Test 2026 Target 1400";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = hheaAscender;
@@ -358,6 +382,10 @@ name = "Remove Glyphs";
 value = (
 "question.*"
 );
+},
+{
+name = fileName;
+value = "VmTest2026Target1400b-Regular";
 }
 );
 instanceInterpolations = {
@@ -377,6 +405,9 @@ value = "Vm Test 2026 Target 1400 B";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = "Rename Glyphs";
@@ -408,6 +439,9 @@ value = "Vm Test 2026 Glyphs Dflt";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = "Rename Glyphs";
@@ -476,6 +510,9 @@ value = "Vm Test 2026 Adobe Legacy";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = hheaAscender;
@@ -543,6 +580,9 @@ value = "Vm Test 2026 Tgt1400 useTypo";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = hheaAscender;
@@ -610,6 +650,9 @@ value = "Vm Test 2026 GFMinAlt Agrave";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = hheaAscender;
@@ -677,6 +720,9 @@ value = "Vm Test 2026 GFMinAlt Agr TallWin";
 );
 },
 {
+axesValues = (
+400
+);
 customParameters = (
 {
 name = hheaAscender;
