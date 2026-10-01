@@ -365,7 +365,7 @@ But, are results really different for variable fonts? Let’s test just Target 1
 | Safari (macOS 26)                  | ✅                     | -                                                                                    |
 | Firefox (macOS 26)                 | ✅                     | -                                                                                    |
 | Firefox (Win 11)                   | ✅                     | -                                                                                    |
-| Affinity (Mac)                     | TBD                   | -                                                                                    |
+| Affinity (Mac)                     | 	✅                   | -                                                                                    |
 | Illustrator                        | TBD                   | -                                                                                    |
 
 
