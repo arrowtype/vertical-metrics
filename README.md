@@ -2,10 +2,10 @@
 
 Notes and tests for vertical metrics strategies in fonts—especially how OpenType `hhea`, `typo`, and `win` values behave across important apps.
 
-> [!WARNING]
-> Work in progress: this is an evolving hypothesis based on incomplete testing. Focused on Latin and other primarily horizontal scripts; incomplete for CJK.
+> [!NOTE]
+> This is an evolving hypothesis based on incomplete testing. It is focused on Latin and other primarily horizontal scripts, and incomplete for scripts such as CJK (Chinese, Japanese, and Korean).
 
-**Thesis:** For Latin UI and print, set a target line height with cap-centered `hhea`, InDesign-friendly `typo` + gap, `useTypoMetrics` off, and `win` matched to `hhea` (or to yMax/yMin if you must avoid clipping). That splits roles across apps better than the Google Fonts “everything follows typo” model.
+**Thesis:** For Latin UI and print, it is more useful to separate the roles for `hhea`, `typo`, and `win` metrics, based on the apps that use each metric. That allows better results than the Google Fonts-recommended “everything matches typo” model.
 
 ## Recommended vertical metrics
 
