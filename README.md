@@ -49,7 +49,16 @@ typoLineGap    = abs(hheaDescender - (Lowercase Ascender - Cap Height)) # Makes 
 > > In variable fonts, default line metrics should always be set using the sTypoAscender, sTypoDescender and sTypoLineGap values, and the USE_TYPO_METRICS flag in the fsSelection field should be set. The ascender, descender and lineGap fields in the 'hhea' table should be set to the same values as sTypoAscender, sTypoDescender and sTypoLineGap. The usWinAscent and usWinDescent fields should be used to specify a recommended clipping rectangle.
 > > https://learn.microsoft.com/en-gb/typography/opentype/spec/os2#os2-table-and-opentype-font-variations
 > 
-> It is probably safest in the long run to follow the OpenType Spec. However, it is unlikely apps will change their behavior for interpreting line metrics, so it may be worth it to design based on real-world observations. This is a judgement call for you to make. That said, testing here was done primarily with static fonts, and variable fonts may yield different results.
+> It is probably safest in the long run to follow the OpenType Spec. However, it is highly unlikely apps will change their behavior for interpreting line metrics, as this would mean breaking the layout for many existing & legacy fonts. So I prefer to design based on real-world observations. This is a judgement call for you to make.
+
+_So,_ if you wish to more strictly match the OpenType spec – at the slight detriment to font user experience in InDesign – you can instead set metrics so that `typo=hhea=win`. This is broadly the approach recommended by Google Fonts.
+
+```py
+# typoAscender controls framing in InDesign
+typoAscender   = hheaAscender
+typoDescender  = hheaDescender
+typoLineGap    = 0
+```
 
 ## Video presentation
 
