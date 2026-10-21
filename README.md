@@ -3,9 +3,9 @@
 Notes and tests for vertical metrics strategies in fonts—especially how OpenType `hhea`, `typo`, and `win` values behave across important apps.
 
 > [!NOTE]
-> This is an evolving hypothesis based on incomplete testing. It is focused on Latin and other primarily horizontal scripts, and incomplete for scripts such as CJK (Chinese, Japanese, and Korean).
+> This is an evolving hypothesis based on incomplete testing. It is focused on Latin script and other primarily horizontal scripts, and incomplete for scripts such as CJK (Chinese, Japanese, and Korean).
 
-**Thesis:** For Latin UI and print, it is more useful to separate the roles for `hhea`, `typo`, and `win` metrics, based on the apps that use each metric. That allows better results than the Google Fonts-recommended “everything matches typo” model.
+**Thesis:** For UI and print, it is more useful to separate the roles for `hhea`, `typo`, and `win` metrics, based on the apps that use each metric. That allows better results than the Google Fonts-recommended “everything matches typo” model.
 
 ## Recommended vertical metrics
 
